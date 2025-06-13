@@ -16,6 +16,9 @@ export interface Translation {
   contact: string;
   pricing: string;
   
+  // Wizard
+  stepOf: string;
+  
   // Hero Section
   heroTitle: string;
   heroSubtitle: string;
@@ -255,6 +258,9 @@ export const translations: Record<string, Translation> = {
     contact: "Contact",
     pricing: "Pricing",
     
+    // Wizard
+    stepOf: "Step {current} of {total}",
+    
     // Hero Section
     heroTitle: "Your AI-Powered Relocation Assistant",
     heroSubtitle: "Simplify Your Move to Malaysia",
@@ -483,6 +489,9 @@ export const translations: Record<string, Translation> = {
     contact: "Contact",
     pricing: "Tarifs",
     
+    // Wizard
+    stepOf: "Étape {current} sur {total}",
+    
     // Hero Section
     heroTitle: "Votre Assistant de Relocation Alimenté par IA",
     heroSubtitle: "Simplifiez Votre Déménagement en Malaisie",
@@ -710,6 +719,9 @@ export const translations: Record<string, Translation> = {
     about: "حول",
     contact: "اتصل",
     pricing: "التسعير",
+    
+    // Wizard
+    stepOf: "خطوة {current} من {total}",
     
     // Hero Section
     heroTitle: "مساعد الانتقال المدعوم بالذكاء الاصطناعي",
