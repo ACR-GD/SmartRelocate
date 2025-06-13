@@ -254,7 +254,6 @@ export interface Translation {
   freeConsultation: string;
   fullAssessment: string;
   premiumSupport: string;
-  expertConsultation: string;
   bookConsultation: string;
   
   // Free Guide

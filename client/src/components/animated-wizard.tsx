@@ -685,7 +685,7 @@ export default function AnimatedWizard({ onShowPricing }: AnimatedWizardProps) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            {t.stepOf.replace('{current}', currentStep.toString()).replace('{total}', '4')}
+            {t.stepOf ? t.stepOf.replace('{current}', currentStep.toString()).replace('{total}', '4') : `Step ${currentStep} of 4`}
           </motion.span>
         </div>
         <div className="relative">
