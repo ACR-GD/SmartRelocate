@@ -136,6 +136,32 @@ export interface Translation {
   availableWithProPlan: string;
   upgradeToChatWithAi: string;
   
+  // Visa Types
+  deRantauVisa: string;
+  deRantauVisaDescription: string;
+  mm2hVisa: string;
+  mm2hVisaDescription: string;
+  employmentPass: string;
+  
+  // Visa Requirements & Eligibility
+  perfectMatchForDigitalProfessionals: string;
+  highIncomeEarnersWelcome: string;
+  idealForBusinessProfessionals: string;
+  availableWithMalaysianJobOffer: string;
+  remoteWorkCapability: string;
+  minimumIncomeProof: string;
+  cleanCriminalRecord: string;
+  jobOfferFromMalaysianCompany: string;
+  relevantQualifications: string;
+  salaryRequirement: string;
+  
+  // Time Units
+  weeks: string;
+  months: string;
+  
+  // Wizard Navigation
+  viewResults: string;
+  
   // Profile Management
   saveProfile: string;
   saveProfileDescription: string;
@@ -443,6 +469,32 @@ export const translations: Record<string, Translation> = {
     availableWithProPlan: "Available with Pro plan and above",
     upgradeToChatWithAi: "Upgrade to Chat with AI Assistant",
     
+    // Visa Types
+    deRantauVisa: "DE Rantau Visa",
+    deRantauVisaDescription: "Digital nomad visa for remote workers and entrepreneurs",
+    mm2hVisa: "MM2H Visa",
+    mm2hVisaDescription: "Long-term residence program for high-income individuals",
+    employmentPass: "Employment Pass",
+    
+    // Visa Requirements & Eligibility
+    perfectMatchForDigitalProfessionals: "Perfect match for digital professionals",
+    highIncomeEarnersWelcome: "High income earners welcome",
+    idealForBusinessProfessionals: "Ideal for business professionals",
+    availableWithMalaysianJobOffer: "Available with Malaysian job offer",
+    remoteWorkCapability: "Remote work capability",
+    minimumIncomeProof: "Minimum income proof",
+    cleanCriminalRecord: "Clean criminal record",
+    jobOfferFromMalaysianCompany: "Job offer from Malaysian company",
+    relevantQualifications: "Relevant qualifications",
+    salaryRequirement: "Salary requirement",
+    
+    // Time Units
+    weeks: "weeks",
+    months: "months",
+    
+    // Wizard Navigation
+    viewResults: "View Results",
+    
     // Profile Management
     saveProfile: "Save Profile",
     saveProfileDescription: "Keep your information for future reference",
@@ -738,6 +790,32 @@ export const translations: Record<string, Translation> = {
     availableWithProPlan: "Disponible avec le plan Pro et supérieur",
     upgradeToChatWithAi: "Passer au Chat avec l'Assistant IA",
     
+    // Visa Types
+    deRantauVisa: "Visa DE Rantau",
+    deRantauVisaDescription: "Visa nomade numérique pour travailleurs à distance et entrepreneurs",
+    mm2hVisa: "Visa MM2H",
+    mm2hVisaDescription: "Programme de résidence long terme pour personnes à hauts revenus",
+    employmentPass: "Permis d'Emploi",
+    
+    // Visa Requirements & Eligibility
+    perfectMatchForDigitalProfessionals: "Parfait pour les professionnels numériques",
+    highIncomeEarnersWelcome: "Personnes à hauts revenus bienvenues",
+    idealForBusinessProfessionals: "Idéal pour les professionnels d'affaires",
+    availableWithMalaysianJobOffer: "Disponible avec offre d'emploi malaisienne",
+    remoteWorkCapability: "Capacité de travail à distance",
+    minimumIncomeProof: "Preuve de revenu minimum",
+    cleanCriminalRecord: "Casier judiciaire vierge",
+    jobOfferFromMalaysianCompany: "Offre d'emploi d'une entreprise malaisienne",
+    relevantQualifications: "Qualifications pertinentes",
+    salaryRequirement: "Exigence salariale",
+    
+    // Time Units
+    weeks: "semaines",
+    months: "mois",
+    
+    // Wizard Navigation
+    viewResults: "Voir les Résultats",
+    
     // Profile Management
     saveProfile: "Sauvegarder le Profil",
     saveProfileDescription: "Conservez vos informations pour référence future",
@@ -1032,6 +1110,32 @@ export const translations: Record<string, Translation> = {
     chatWithAiAssistant: "تحدث مع مساعد الذكاء الاصطناعي للحصول على إجابات تفصيلية حول وضعك المحدد، وإرشادات خطوة بخطوة، وتوصيات شخصية.",
     availableWithProPlan: "متاح مع الخطة الاحترافية وما فوق",
     upgradeToChatWithAi: "ترقية للدردشة مع المساعد الذكي",
+    
+    // Visa Types
+    deRantauVisa: "فيزا DE Rantau",
+    deRantauVisaDescription: "فيزا البدو الرقميين للعاملين عن بُعد والمقاولين",
+    mm2hVisa: "فيزا MM2H",
+    mm2hVisaDescription: "برنامج إقامة طويل المدى لأصحاب الدخل المرتفع",
+    employmentPass: "تصريح العمل",
+    
+    // Visa Requirements & Eligibility
+    perfectMatchForDigitalProfessionals: "مطابقة مثالية للمهنيين الرقميين",
+    highIncomeEarnersWelcome: "أصحاب الدخل المرتفع مرحب بهم",
+    idealForBusinessProfessionals: "مثالي لمحترفي الأعمال",
+    availableWithMalaysianJobOffer: "متاح مع عرض عمل ماليزي",
+    remoteWorkCapability: "قدرة العمل عن بُعد",
+    minimumIncomeProof: "إثبات الحد الأدنى للدخل",
+    cleanCriminalRecord: "سجل جنائي نظيف",
+    jobOfferFromMalaysianCompany: "عرض عمل من شركة ماليزية",
+    relevantQualifications: "مؤهلات ذات صلة",
+    salaryRequirement: "متطلبات الراتب",
+    
+    // Time Units
+    weeks: "أسابيع",
+    months: "أشهر",
+    
+    // Wizard Navigation
+    viewResults: "عرض النتائج",
     
     // Profile Management
     saveProfile: "حفظ الملف الشخصي",
