@@ -1,0 +1,53 @@
+// ✅ GOAL:
+// Integrate a paid component structure into the SmartRelocate app, with a clear upgrade path from free tools to premium features
+
+// ✅ PHASE 1: Build Pricing Tiers + UI
+
+// 1. Create a new page or modal component: /client/src/components/pricing.tsx
+// - Show 4 tiers: Free, Starter, Pro, Premium
+// - Each tier includes:
+//   - Name
+//   - Price (e.g., $0, $19 one-time, $9/month, $499 flat)
+//   - Feature list (checklist download, full report, unlimited access, 1:1 support, etc.)
+//   - CTA button (e.g., “Start for Free”, “Buy PDF Report”, “Subscribe”, “Contact Us”)
+
+// 2. Add the pricing component to the homepage and navigation
+// - Add a “Pricing” link to the navbar or footer
+// - Place a “See plans” CTA after assessment results or checklist generator
+
+// ✅ PHASE 2: Gate Certain Features
+
+// 3. Gate these features behind a pricing tier:
+// - PDF export of relocation checklist → Starter ($19)
+// - Relocation budget calculator → Pro ($9/month)
+// - Saved relocation profiles / alerts → Pro ($9/month)
+// - Full-service relocation support → Premium ($499+)
+
+// 4. Show a “locked” version with blurred overlay and tooltip: “Upgrade to unlock this feature.”
+
+// ✅ PHASE 3: Track Plan Status
+
+// 5. Add a simple user plan state for now (using useState or a mock auth):
+// const userPlan = "free" | "starter" | "pro" | "premium";
+// - Use this to conditionally render access to premium components
+
+// ✅ BONUS (Optional for Future Integration):
+// - Stripe payment integration (not required yet)
+// - Use localStorage or a fake “login modal” to simulate plan selection for now
+
+// ✅ EXAMPLES:
+// In checklist export component:
+if (userPlan !== "starter" && userPlan !== "pro" && userPlan !== "premium") {
+  return <LockedOverlay message="Upgrade to Starter to download your checklist" />
+}
+
+// ✅ FILES TO CREATE / MODIFY:
+// /client/src/components/pricing.tsx
+// /client/src/components/navbar.tsx or footer.tsx
+// /client/src/components/export-checklist.tsx (gated)
+// /client/src/state/userPlan.ts (simple user mock logic)
+
+// ✅ TONE:
+// Clean, professional UI with soft shadows and clear CTAs.
+// Add a “Recommended” badge to the Pro tier.
+

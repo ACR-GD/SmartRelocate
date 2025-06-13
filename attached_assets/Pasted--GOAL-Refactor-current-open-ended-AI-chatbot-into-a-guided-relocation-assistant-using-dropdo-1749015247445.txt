@@ -1,0 +1,55 @@
+// ✅ GOAL:
+// Refactor current open-ended AI chatbot into a guided relocation assistant using dropdowns + structured data
+
+// ✅ FRONTEND CHANGES
+
+// 1. Replace free-text country input with:
+// - A dropdown to choose a continent (e.g. Asia, Europe, Americas, etc.)
+// - Once a continent is selected, show a second dropdown with countries from that continent
+
+// 2. When a country is selected, display:
+// - Visa options
+- Cost estimates
+- Estimated duration
+Each in a styled card format (with icons if possible)
+
+// 3. Add an "Enter your email to get a full personalized relocation checklist (PDF or link)" input under the results
+// - Store email locally or send to backend/API route
+
+// 4. BONUS: Add a button for each visa option to "Learn more"
+// - For now, trigger a modal with dummy info (will connect to backend later)
+
+// ✅ BACKEND CHANGES
+
+// 5. Create a JSON or TS object with relocation data for at least 5 countries
+// Example structure:
+const relocationData = {
+  canada: {
+    visas: ["DE Rantau", "MM2H", "Employment Pass"],
+    cost: "USD 2,500–10,000 depending on visa",
+    duration: "3 weeks to 3 months"
+  },
+  germany: {
+    visas: ["DE Rantau", "MM2H"],
+    cost: "USD 3,000–8,000",
+    duration: "1–2 months"
+  }
+  // Add more...
+};
+
+// 6. Create an API endpoint `/api/relocate-info` that takes a country slug (e.g. canada) and returns the relevant data
+
+// ✅ OPTIONAL GPT USAGE (for future version)
+// In `/api/gpt-assistant`, pass the selected country + visa type and ask GPT:
+// “Act as a relocation expert. Summarize the key requirements, timeline, and cost breakdown for a [visa] for someone from [country] moving to Malaysia.”
+
+// ✅ FINAL TOUCHES
+// - Add loading states
+// - Add fallback message if no info is available
+// - Make it responsive
+
+// ✅ FILES TO MODIFY:
+// /client/src/components/chat-section.tsx
+// /client/src/components/chat-modal.tsx (optional, reuse modal)
+// /server/routes.ts (add /api/relocate-info)
+// /shared/relocationData.ts or a new file for country data

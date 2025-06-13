@@ -1,0 +1,131 @@
+// 🎯 GOAL:
+// Build a simple Stripe checkout flow for a $19 PDF relocation guide.
+// After payment, the user receives the download. Email gets stored in Supabase.
+
+// 🔧 PART 1: Supabase table for leads
+// Table: `leads`
+// Columns: id (uuid), email (text), paid (boolean), stripe_session_id (text), created_at (timestamp)
+
+-- SQL to run in Supabase:
+create table leads (
+  id uuid primary key default uuid_generate_v4(),
+  email text not null,
+  paid boolean default false,
+  stripe_session_id text,
+  created_at timestamp with time zone default timezone('utc'::text, now())
+);
+
+// 🔧 PART 2: Email + Stripe button form
+// Location: /client/src/components/PdfPaywallForm.tsx
+
+import { useState } from 'react';
+
+export default function PdfPaywallForm() {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const startCheckout = async () => {
+    setLoading(true);
+    const res = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    const { url } = await res.json();
+    window.location.href = url;
+  };
+
+  return (
+    <div className="space-y-4">
+      <input
+        type="email"
+        required
+        value={email}
+        placeholder="Your email"
+        className="w-full p-2 border rounded"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <button
+        disabled={loading}
+        onClick={startCheckout}
+        className="w-full bg-black text-white py-2 rounded"
+      >
+        {loading ? "Redirecting..." : "Buy Guide for $19"}
+      </button>
+    </div>
+  );
+}
+
+// 🔧 PART 3: Server route to create Stripe checkout session
+// Location: /server/routes.ts
+
+import Stripe from 'stripe';
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+app.post("/api/create-checkout-session", async (req, res) => {
+  const { email } = req.body;
+
+  // Save the email in Supabase
+  const { data, error } = await supabase.from("leads").insert([{ email }]);
+
+  const session = await stripe.checkout.sessions.create({
+    mode: 'payment',
+    payment_method_types: ['card'],
+    line_items: [{
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: "Relocation PDF Checklist",
+        },
+        unit_amount: 1900,
+      },
+      quantity: 1,
+    }],
+    success_url: `${process.env.DOMAIN}/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.DOMAIN}/cancel`,
+    metadata: { email }
+  });
+
+  // Update the lead with session ID
+  await supabase.from("leads")
+    .update({ stripe_session_id: session.id })
+    .eq("email", email);
+
+  res.json({ url: session.url });
+});
+
+// 🔧 PART 4: Success Page — Check payment and deliver PDF
+// Location: /pages/success.tsx or /routes/success.ts
+
+app.get("/success", async (req, res) => {
+  const sessionId = req.query.session_id;
+  const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+  if (session.payment_status !== "paid") {
+    return res.status(403).send("Payment not confirmed");
+  }
+
+  const email = session.metadata.email;
+
+  // Mark user as paid in Supabase
+  await supabase
+    .from("leads")
+    .update({ paid: true })
+    .eq("stripe_session_id", sessionId);
+
+  // Generate or load PDF
+  const pdfBuffer = Buffer.from("PDF content here", "utf-8");
+
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", `attachment; filename=relocation-guide.pdf`);
+  res.send(pdfBuffer);
+});
+
+// 🧠 BONUS (Optional):
+// Use PDFKit or Puppeteer to generate the PDF dynamically from user info.
+
+// ✅ FINAL GOAL:
+// → User enters email
+// → Pays $19 via Stripe
+// → Gets PDF download only on success page
+// → You keep the lead + payment status in Supabase

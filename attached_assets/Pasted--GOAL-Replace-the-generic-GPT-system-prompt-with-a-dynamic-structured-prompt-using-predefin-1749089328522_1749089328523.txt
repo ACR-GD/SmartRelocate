@@ -1,0 +1,70 @@
+// ✅ GOAL:
+// Replace the generic GPT system prompt with a dynamic, structured prompt using predefined visa data,
+// including DE Rantau, MM2H, and Labuan Director Visa.
+
+// ✅ PART 1: Create a shared visa data file
+// → Create file: /shared/visaData.ts
+
+// Contents:
+export const visaData = {
+  "de_rantau": {
+    name: "DE Rantau Nomad Pass",
+    description: "A Malaysian visa for digital nomads and remote tech professionals.",
+    requirements: [
+      "Minimum annual income of USD 24,000",
+      "Employment or freelance work for non-Malaysian companies",
+      "Proof of income or ongoing contracts"
+    ],
+    duration: "3 to 12 months (renewable)",
+    cost: "RM 1,060 (processing + visa fee)",
+    benefits: [
+      "Bring spouse and children",
+      "Live anywhere in Malaysia",
+      "Fast-track application processing"
+    ],
+    processingTime: "2 to 4 weeks",
+    targetAudience: "Digital nomads, freelancers, remote employees",
+    website: "https://mdec.my/derantau"
+  },
+
+  "mm2h": {
+    name: "Malaysia My Second Home (MM2H)",
+    description: "A long-term residency program for foreigners with high income or assets.",
+    requirements: [
+      "Liquid assets of RM 1.5 million",
+      "Monthly income over RM 40,000",
+      "Fixed deposit of RM 1 million in a Malaysian bank"
+    ],
+    duration: "5 years (renewable)",
+    cost: "RM 5,000 application fee + optional agent fees",
+    benefits: [
+      "Ability to bring dependents",
+      "Buy property in Malaysia",
+      "Access to local banking and healthcare"
+    ],
+    processingTime: "90 to 120 days",
+    targetAudience: "Retirees, high-net-worth individuals, long-term residents",
+    website: "https://www.mm2h.gov.my/"
+  },
+
+  "labuan_director": {
+    name: "Labuan Director Visa",
+    description: "A Malaysian visa for foreign entrepreneurs who establish and run a Labuan-based company.",
+    requirements: [
+      "Set up a Labuan company with a physical office in Malaysia",
+      "Hold a director position in the company",
+      "Pay monthly director salary (minimum RM 10,000 recommended)",
+      "Company must employ at least 1 Malaysian"
+    ],
+    duration: "1 year (renewable annually)",
+    cost: "USD 1,500 to 3,000 for company + RM 1,500+ for visa + dependents",
+    benefits: [
+      "Bring spouse and children",
+      "Simplified tax structure (3% corporate tax or flat RM 20,000)",
+      "Live and operate in Malaysia under your own business"
+    ],
+    processingTime: "3 to 6 weeks (after company incorporation)",
+    targetAudience: "Entrepreneurs, solo founders, digital business owners",
+    website: "https://www.labuanibfc.com/"
+  }
+};

@@ -1,0 +1,49 @@
+// ✅ GOAL:
+// Replace the open-ended chatbot with a structured, button-based decision tree flow for user input.
+// This will prevent abuse of the free system and guide users toward gated premium content.
+
+// ✅ PART 1: Create a new React component
+// → File: /client/src/components/relocation-wizard.tsx
+
+// This component should:
+// - Ask 3-4 questions using buttons, dropdowns or stepper UI (one per step):
+//   1. "Where are you from?" → Dropdown by continent → country
+//   2. "What do you do for a living?" → Job, business owner, freelancer, unemployed
+//   3. "What is your average monthly income (in USD)?" → Select or input range
+//   4. "Are you moving alone or with family?" → Alone, Partner, Family
+
+// ✅ PART 2: Use responses to filter and display visa options
+// - Based on user inputs, display **eligible visa cards** (from visaData.ts)
+// - Each card should show:
+//   - Visa name
+//   - Short description
+//   - Eligibility summary
+//   - Button: “View Full Checklist” or “Download PDF”
+//   - Lock icon and blurred overlay if user is on free plan
+
+// ✅ PART 3: Gate premium features
+// - For gated info (e.g., checklist, full breakdown, PDF), show a prompt:
+//   - “Upgrade to unlock your full relocation plan”
+//   - Button: “View Plans” → leads to /pricing or opens modal
+// - Use a `userPlan` state variable ("free" | "starter" | "pro" | "premium") to control access
+// - Optionally persist `userPlan` in localStorage or mock auth context
+
+// ✅ PART 4: Connect to existing visaData
+// - Import visa details from /shared/visaData.ts
+// - Use logic to match user profile with visa requirements (can be basic for now)
+
+// ✅ FILES TO MODIFY:
+// - /client/src/components/navbar.tsx → Add “Get Started” link to relocation-wizard.tsx
+// - /shared/visaData.ts → Ensure each visa has metadata like minIncome, targetProfession
+// - /client/src/state/userPlan.ts → Add user plan mock logic
+
+// ✅ BONUS (Optional):
+// - Add progress indicator or visual stepper
+// - Save input to session or context
+// - Enable resume later (if stored in localStorage)
+
+// ✅ FINAL GOAL:
+// The user interacts with buttons instead of a chatbot
+// They get clear, relevant visa options
+// Premium info is gated to drive conversion
+

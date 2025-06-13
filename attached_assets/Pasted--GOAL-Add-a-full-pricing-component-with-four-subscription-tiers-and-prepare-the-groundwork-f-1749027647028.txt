@@ -1,0 +1,59 @@
+// ✅ GOAL:
+// Add a full pricing component with four subscription tiers and prepare the groundwork for gated premium features in the SmartRelocate app.
+
+// ✅ TASKS:
+
+// 1. Create a new React component: /client/src/components/pricing.tsx
+// Display 4 tiers:
+// - Free ($0)
+// - Starter ($19 one-time)
+// - Pro ($9/month)
+// - Premium ($499+)
+// Each tier includes:
+//   - Title
+//   - Price
+//   - Description
+//   - Feature list
+//   - CTA button (e.g., "Start for Free", "Buy PDF Checklist", "Subscribe", "Book Full Service")
+// Highlight the Pro plan as "Recommended"
+
+// 2. Add Tailwind styling:
+// - Use rounded-2xl cards, shadow, hover effects
+// - Use grid layout for responsiveness (2-cols on desktop, 1-col on mobile)
+
+// 3. Add a `userPlan` mock variable (temporary state management)
+// - Example values: "free" | "starter" | "pro" | "premium"
+// - In relevant components (like checklist download, cost calculator), gate features based on this variable
+// - If access is denied, show a <LockedOverlay message="Upgrade to unlock this feature" />
+
+// 4. Add a link to the pricing page from the homepage and footer
+// - Label it “Pricing”
+// - Consider showing a “Upgrade” button in the nav bar if the userPlan is "free"
+
+// 5. BONUS: Structure feature comparison table logic for reuse in future
+// - You can create a feature matrix in JSON if you want to reuse it in pricing modals or upsells
+
+// ✅ EXAMPLE COMPONENT:
+Create a pricing table like this:
+
+<h2>Choose Your Plan</h2>
+[ Pricing Card: Free ]
+[ Pricing Card: Starter ]
+[ Pricing Card: Pro - Recommended ]
+[ Pricing Card: Premium ]
+
+Each card:
+- shows key features
+- has a CTA button
+- uses proper text from t('translationKey') if available
+
+// ✅ FINAL GOAL:
+// Users should clearly see the value of upgrading.
+// Developers should be able to reuse the gated logic in any component using userPlan variable.
+
+// ✅ FILES TO CREATE/MODIFY:
+// /client/src/components/pricing.tsx
+// /client/src/components/navbar.tsx (add Pricing link)
+// /client/src/state/userPlan.ts (mock logic or localStorage-based)
+// /client/src/components/export-checklist.tsx (add feature gating)
+
