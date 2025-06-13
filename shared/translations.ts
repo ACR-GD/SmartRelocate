@@ -1027,6 +1027,15 @@ export const translations: Record<string, Translation> = {
     sevenDayMoneyBack: "Nous offrons une garantie de remboursement de 7 jours si vous n'êtes pas satisfait du guide.",
     doINeedAdditionalConsultation: "Ai-je besoin d'une consultation supplémentaire ?",
     guideCoversGeneral: "Le guide couvre les informations générales. Pour les cas complexes, nous recommandons nos services de consultation.",
+    
+    // PDF Paywall Form
+    emailRequired: "Email Requis",
+    pleaseEnterEmailToContinue: "Veuillez entrer votre adresse email pour continuer",
+    emailAddress: "Adresse Email",
+    redirecting: "Redirection...",
+    buyGuideFor19: "Acheter le Guide pour 19$",
+    securePaymentStripe: "Paiement sécurisé via Stripe",
+    instantDownloadAfterPayment: "Téléchargement instantané après paiement",
   },
   
   ar: {
@@ -1360,5 +1369,14 @@ export const translations: Record<string, Translation> = {
     sevenDayMoneyBack: "نحن نقدم ضمان استرداد الأموال لمدة 7 أيام إذا لم تكن راضياً عن الدليل.",
     doINeedAdditionalConsultation: "هل أحتاج إلى استشارة إضافية؟",
     guideCoversGeneral: "يغطي الدليل المعلومات العامة. للحالات المعقدة، نوصي بخدمات الاستشارة لدينا.",
+    
+    // PDF Paywall Form
+    emailRequired: "البريد الإلكتروني مطلوب",
+    pleaseEnterEmailToContinue: "يرجى إدخال عنوان بريدك الإلكتروني للمتابعة",
+    emailAddress: "عنوان البريد الإلكتروني",
+    redirecting: "جاري التوجيه...",
+    buyGuideFor19: "شراء الدليل مقابل 19$",
+    securePaymentStripe: "دفع آمن عبر Stripe",
+    instantDownloadAfterPayment: "تنزيل فوري بعد الدفع",
   },
 };
