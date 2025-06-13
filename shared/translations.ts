@@ -969,6 +969,7 @@ export const translations: Record<string, Translation> = {
     selectProfession: "اختر مهنتك",
     selectFamilyStatus: "اختر الوضع العائلي",
     selectIncomeRange: "اختر نطاق دخلك",
+    selectCountry: "اختر بلدك",
     
     // Income Range Labels
     under3k: "أقل من 3,000 دولار",
