@@ -487,8 +487,8 @@ export default function AnimatedWizard({ onShowPricing }: AnimatedWizardProps) {
                   
                   {(!visa.isPremium || userPlan !== 'free') && (
                     <div className="mt-4 flex space-x-3">
-                      <Button variant="outline" size="sm">View Full Checklist</Button>
-                      <Button size="sm">Download PDF Guide</Button>
+                      <Button variant="outline" size="sm">{t.viewFullChecklist}</Button>
+                      <Button size="sm">{t.downloadPdfGuide}</Button>
                     </div>
                   )}
                 </CardContent>

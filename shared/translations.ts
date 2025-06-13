@@ -127,6 +127,14 @@ export interface Translation {
   cost: string;
   eligibility: string;
   keyRequirements: string;
+  processingTime: string;
+  viewFullChecklist: string;
+  downloadPdfGuide: string;
+  upgradeRequired: string;
+  getPersonalizedGuidance: string;
+  chatWithAiAssistant: string;
+  availableWithProPlan: string;
+  upgradeToChatWithAi: string;
   
   // Profile Management
   saveProfile: string;
@@ -426,6 +434,14 @@ export const translations: Record<string, Translation> = {
     cost: "Cost",
     eligibility: "Eligibility",
     keyRequirements: "Key Requirements",
+    processingTime: "Processing Time",
+    viewFullChecklist: "View Full Checklist",
+    downloadPdfGuide: "Download PDF Guide",
+    upgradeRequired: "Upgrade Required",
+    getPersonalizedGuidance: "Get Personalized Guidance",
+    chatWithAiAssistant: "Chat with our AI assistant for detailed answers about your specific situation, step-by-step guidance, and personalized recommendations.",
+    availableWithProPlan: "Available with Pro plan and above",
+    upgradeToChatWithAi: "Upgrade to Chat with AI Assistant",
     
     // Profile Management
     saveProfile: "Save Profile",
@@ -713,6 +729,14 @@ export const translations: Record<string, Translation> = {
     cost: "Coût",
     eligibility: "Éligibilité",
     keyRequirements: "Exigences Clés",
+    processingTime: "Temps de Traitement",
+    viewFullChecklist: "Voir la Liste Complète",
+    downloadPdfGuide: "Télécharger le Guide PDF",
+    upgradeRequired: "Mise à Niveau Requise",
+    getPersonalizedGuidance: "Obtenez des Conseils Personnalisés",
+    chatWithAiAssistant: "Discutez avec notre assistant IA pour des réponses détaillées sur votre situation spécifique, des conseils étape par étape et des recommandations personnalisées.",
+    availableWithProPlan: "Disponible avec le plan Pro et supérieur",
+    upgradeToChatWithAi: "Passer au Chat avec l'Assistant IA",
     
     // Profile Management
     saveProfile: "Sauvegarder le Profil",
@@ -1000,6 +1024,14 @@ export const translations: Record<string, Translation> = {
     cost: "التكلفة",
     eligibility: "الأهلية",
     keyRequirements: "المتطلبات الأساسية",
+    processingTime: "وقت المعالجة",
+    viewFullChecklist: "عرض القائمة الكاملة",
+    downloadPdfGuide: "تحميل دليل PDF",
+    upgradeRequired: "الترقية مطلوبة",
+    getPersonalizedGuidance: "احصل على إرشادات شخصية",
+    chatWithAiAssistant: "تحدث مع مساعد الذكاء الاصطناعي للحصول على إجابات تفصيلية حول وضعك المحدد، وإرشادات خطوة بخطوة، وتوصيات شخصية.",
+    availableWithProPlan: "متاح مع الخطة الاحترافية وما فوق",
+    upgradeToChatWithAi: "ترقية للدردشة مع المساعد الذكي",
     
     // Profile Management
     saveProfile: "حفظ الملف الشخصي",
