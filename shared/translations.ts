@@ -95,6 +95,16 @@ export interface Translation {
   // Options
   selectProfession: string;
   selectFamilyStatus: string;
+  
+  // Profession Labels
+  technologyProfessional: string;
+  consultant: string;
+  businessOwner: string;
+  freelancer: string;
+  financeProfessional: string;
+  healthcareProfessional: string;
+  educationProfessional: string;
+  otherProfessional: string;
   softwareDeveloper: string;
   dataScientist: string;
   productManager: string;
@@ -337,6 +347,16 @@ export const translations: Record<string, Translation> = {
     // Options
     selectProfession: "Select your profession",
     selectFamilyStatus: "Select family status",
+    
+    // Profession Labels
+    technologyProfessional: "Technology Professional",
+    consultant: "Consultant",
+    businessOwner: "Business Owner",
+    freelancer: "Freelancer",
+    financeProfessional: "Finance Professional",
+    healthcareProfessional: "Healthcare Professional",
+    educationProfessional: "Education Professional",
+    otherProfessional: "Other Professional",
     softwareDeveloper: "Software Developer",
     dataScientist: "Data Scientist",
     productManager: "Product Manager",
@@ -568,6 +588,16 @@ export const translations: Record<string, Translation> = {
     // Options
     selectProfession: "Sélectionnez votre profession",
     selectFamilyStatus: "Sélectionnez le statut familial",
+    
+    // Profession Labels
+    technologyProfessional: "Professionnel de la Technologie",
+    consultant: "Consultant",
+    businessOwner: "Propriétaire d'Entreprise",
+    freelancer: "Freelance",
+    financeProfessional: "Professionnel de la Finance",
+    healthcareProfessional: "Professionnel de la Santé",
+    educationProfessional: "Professionnel de l'Éducation",
+    otherProfessional: "Autre Professionnel",
     softwareDeveloper: "Développeur Logiciel",
     dataScientist: "Scientifique des Données",
     productManager: "Chef de Produit",
@@ -799,6 +829,16 @@ export const translations: Record<string, Translation> = {
     // Options
     selectProfession: "اختر مهنتك",
     selectFamilyStatus: "اختر الوضع العائلي",
+    
+    // Profession Labels
+    technologyProfessional: "محترف التكنولوجيا",
+    consultant: "استشاري",
+    businessOwner: "مالك الأعمال",
+    freelancer: "مستقل",
+    financeProfessional: "محترف المالية",
+    healthcareProfessional: "محترف الرعاية الصحية",
+    educationProfessional: "محترف التعليم",
+    otherProfessional: "محترف آخر",
     softwareDeveloper: "مطور برمجيات",
     dataScientist: "عالم بيانات",
     productManager: "مدير منتج",
