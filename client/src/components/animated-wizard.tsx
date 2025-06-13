@@ -549,7 +549,7 @@ export default function AnimatedWizard({ onShowPricing }: AnimatedWizardProps) {
                     onClick={onShowPricing}
                     className="border-blue-300 text-blue-700 hover:bg-blue-100"
                   >
-                    Upgrade Required
+                    {t.upgradeRequired}
                   </Button>
                 ) : (
                   <Button 
@@ -584,18 +584,17 @@ export default function AnimatedWizard({ onShowPricing }: AnimatedWizardProps) {
           {/* Upsell Section for Free Users */}
           {userPlan === 'free' && (
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6 text-center">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Get Personalized Guidance</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t.getPersonalizedGuidance}</h3>
               <p className="text-gray-600 mb-4">
-                Chat with our AI assistant for detailed answers about your specific situation, 
-                step-by-step guidance, and personalized recommendations.
+                {t.chatWithAiAssistant}
               </p>
               <div className="space-y-3">
-                <p className="text-sm text-gray-500">Available with Pro plan and above</p>
+                <p className="text-sm text-gray-500">{t.availableWithProPlan}</p>
                 <Button 
                   onClick={onShowPricing}
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
                 >
-                  Upgrade to Chat with AI Assistant
+                  {t.upgradeToChatWithAi}
                 </Button>
               </div>
             </div>
