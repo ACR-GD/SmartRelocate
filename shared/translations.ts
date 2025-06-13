@@ -110,6 +110,39 @@ export interface Translation {
   movingAlone: string;
   withPartnerSpouse: string;
   withFamilyChildren: string;
+  
+  // Wizard Results
+  yourMalaysiaVisaOptions: string;
+  basedOnYourProfile: string;
+  matchPercent: string;
+  cost: string;
+  eligibility: string;
+  keyRequirements: string;
+  
+  // Profile Management
+  saveProfile: string;
+  saveProfileDescription: string;
+  manageProfiles: string;
+  
+  // Visa Alerts
+  visaAlerts: string;
+  visaAlertsDescription: string;
+  viewAlerts: string;
+  
+  // AI Guidance
+  aiGuidance: string;
+  aiGuidanceDescription: string;
+  chatNow: string;
+  
+  // Expert Consultation
+  expertConsultation: string;
+  expertConsultationDescription: string;
+  bookSession: string;
+  
+  // Premium Content
+  premiumContent: string;
+  upgradeToUnlock: string;
+  viewPlans: string;
   softwareDeveloper: string;
   dataScientist: string;
   productManager: string;
@@ -367,6 +400,38 @@ export const translations: Record<string, Translation> = {
     movingAlone: "Moving alone",
     withPartnerSpouse: "With partner/spouse",
     withFamilyChildren: "With family (children)",
+    
+    // Wizard Results
+    yourMalaysiaVisaOptions: "Your Malaysia Visa Options",
+    basedOnYourProfile: "Based on your profile, here are the best visa options for you",
+    matchPercent: "match",
+    cost: "Cost",
+    eligibility: "Eligibility",
+    keyRequirements: "Key Requirements",
+    
+    // Profile Management
+    saveProfile: "Save Profile",
+    saveProfileDescription: "Keep your information for future reference",
+    manageProfiles: "Manage Profiles",
+    
+    // Visa Alerts
+    visaAlerts: "Visa Status Alerts",
+    visaAlertsDescription: "Get notified about policy changes",
+    viewAlerts: "View Alerts",
+    
+    // AI Guidance
+    aiGuidance: "AI Guidance",
+    aiGuidanceDescription: "Get personalized step-by-step assistance",
+    chatNow: "Chat Now",
+    
+    // Expert Consultation
+    expertConsultationDescription: "Book a session with our specialists",
+    bookSession: "Book Session",
+    
+    // Premium Content
+    premiumContent: "Premium Content",
+    upgradeToUnlock: "Upgrade to unlock detailed analysis",
+    viewPlans: "View Plans",
     softwareDeveloper: "Software Developer",
     dataScientist: "Data Scientist",
     productManager: "Product Manager",
@@ -613,6 +678,38 @@ export const translations: Record<string, Translation> = {
     movingAlone: "Déménager seul",
     withPartnerSpouse: "Avec partenaire/époux",
     withFamilyChildren: "Avec famille (enfants)",
+    
+    // Wizard Results
+    yourMalaysiaVisaOptions: "Vos Options de Visa pour la Malaisie",
+    basedOnYourProfile: "Basé sur votre profil, voici les meilleures options de visa pour vous",
+    matchPercent: "correspondance",
+    cost: "Coût",
+    eligibility: "Éligibilité",
+    keyRequirements: "Exigences Clés",
+    
+    // Profile Management
+    saveProfile: "Sauvegarder le Profil",
+    saveProfileDescription: "Conservez vos informations pour référence future",
+    manageProfiles: "Gérer les Profils",
+    
+    // Visa Alerts
+    visaAlerts: "Alertes de Statut de Visa",
+    visaAlertsDescription: "Soyez informé des changements de politique",
+    viewAlerts: "Voir les Alertes",
+    
+    // AI Guidance
+    aiGuidance: "Guidage IA",
+    aiGuidanceDescription: "Obtenez une assistance personnalisée étape par étape",
+    chatNow: "Discuter Maintenant",
+    
+    // Expert Consultation
+    expertConsultationDescription: "Réservez une session avec nos spécialistes",
+    bookSession: "Réserver une Session",
+    
+    // Premium Content
+    premiumContent: "Contenu Premium",
+    upgradeToUnlock: "Mettre à niveau pour débloquer l'analyse détaillée",
+    viewPlans: "Voir les Plans",
     softwareDeveloper: "Développeur Logiciel",
     dataScientist: "Scientifique des Données",
     productManager: "Chef de Produit",
@@ -859,6 +956,38 @@ export const translations: Record<string, Translation> = {
     movingAlone: "الانتقال لوحدي",
     withPartnerSpouse: "مع شريك/زوج",
     withFamilyChildren: "مع العائلة (أطفال)",
+    
+    // Wizard Results
+    yourMalaysiaVisaOptions: "خيارات فيزا ماليزيا الخاصة بك",
+    basedOnYourProfile: "بناءً على ملفك الشخصي، إليك أفضل خيارات الفيزا لك",
+    matchPercent: "تطابق",
+    cost: "التكلفة",
+    eligibility: "الأهلية",
+    keyRequirements: "المتطلبات الأساسية",
+    
+    // Profile Management
+    saveProfile: "حفظ الملف الشخصي",
+    saveProfileDescription: "احتفظ بمعلوماتك للرجوع إليها مستقبلاً",
+    manageProfiles: "إدارة الملفات الشخصية",
+    
+    // Visa Alerts
+    visaAlerts: "تنبيهات حالة الفيزا",
+    visaAlertsDescription: "احصل على إشعارات حول تغييرات السياسة",
+    viewAlerts: "عرض التنبيهات",
+    
+    // AI Guidance
+    aiGuidance: "إرشاد الذكاء الاصطناعي",
+    aiGuidanceDescription: "احصل على مساعدة شخصية خطوة بخطوة",
+    chatNow: "دردش الآن",
+    
+    // Expert Consultation
+    expertConsultationDescription: "احجز جلسة مع المختصين لدينا",
+    bookSession: "حجز جلسة",
+    
+    // Premium Content
+    premiumContent: "المحتوى المميز",
+    upgradeToUnlock: "ترقية لفتح التحليل المفصل",
+    viewPlans: "عرض الخطط",
     softwareDeveloper: "مطور برمجيات",
     dataScientist: "عالم بيانات",
     productManager: "مدير منتج",
