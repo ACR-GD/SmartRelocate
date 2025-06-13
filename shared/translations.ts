@@ -95,6 +95,15 @@ export interface Translation {
   // Options
   selectProfession: string;
   selectFamilyStatus: string;
+  selectIncomeRange: string;
+  selectCountry: string;
+  
+  // Income Range Labels
+  under3k: string;
+  range3k5k: string;
+  range5k10k: string;
+  range10k20k: string;
+  over20k: string;
   
   // Profession Labels
   technologyProfessional: string;
@@ -385,6 +394,15 @@ export const translations: Record<string, Translation> = {
     // Options
     selectProfession: "Select your profession",
     selectFamilyStatus: "Select family status",
+    selectIncomeRange: "Select your income range",
+    selectCountry: "Select your country",
+    
+    // Income Range Labels
+    under3k: "Under $3,000",
+    range3k5k: "$3,000 - $5,000",
+    range5k10k: "$5,000 - $10,000",
+    range10k20k: "$10,000 - $20,000",
+    over20k: "Over $20,000",
     
     // Profession Labels
     technologyProfessional: "Technology Professional",
@@ -663,6 +681,15 @@ export const translations: Record<string, Translation> = {
     // Options
     selectProfession: "Sélectionnez votre profession",
     selectFamilyStatus: "Sélectionnez le statut familial",
+    selectIncomeRange: "Sélectionnez votre tranche de revenus",
+    selectCountry: "Sélectionnez votre pays",
+    
+    // Income Range Labels
+    under3k: "Moins de 3 000 $",
+    range3k5k: "3 000 $ - 5 000 $",
+    range5k10k: "5 000 $ - 10 000 $",
+    range10k20k: "10 000 $ - 20 000 $",
+    over20k: "Plus de 20 000 $",
     
     // Profession Labels
     technologyProfessional: "Professionnel de la Technologie",
@@ -941,6 +968,14 @@ export const translations: Record<string, Translation> = {
     // Options
     selectProfession: "اختر مهنتك",
     selectFamilyStatus: "اختر الوضع العائلي",
+    selectIncomeRange: "اختر نطاق دخلك",
+    
+    // Income Range Labels
+    under3k: "أقل من 3,000 دولار",
+    range3k5k: "3,000 - 5,000 دولار",
+    range5k10k: "5,000 - 10,000 دولار",
+    range10k20k: "10,000 - 20,000 دولار",
+    over20k: "أكثر من 20,000 دولار",
     
     // Profession Labels
     technologyProfessional: "محترف التكنولوجيا",
