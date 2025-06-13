@@ -105,6 +105,11 @@ export interface Translation {
   healthcareProfessional: string;
   educationProfessional: string;
   otherProfessional: string;
+  
+  // Family Status Labels
+  movingAlone: string;
+  withPartnerSpouse: string;
+  withFamilyChildren: string;
   softwareDeveloper: string;
   dataScientist: string;
   productManager: string;
@@ -357,6 +362,11 @@ export const translations: Record<string, Translation> = {
     healthcareProfessional: "Healthcare Professional",
     educationProfessional: "Education Professional",
     otherProfessional: "Other Professional",
+    
+    // Family Status Labels
+    movingAlone: "Moving alone",
+    withPartnerSpouse: "With partner/spouse",
+    withFamilyChildren: "With family (children)",
     softwareDeveloper: "Software Developer",
     dataScientist: "Data Scientist",
     productManager: "Product Manager",
@@ -598,6 +608,11 @@ export const translations: Record<string, Translation> = {
     healthcareProfessional: "Professionnel de la Santé",
     educationProfessional: "Professionnel de l'Éducation",
     otherProfessional: "Autre Professionnel",
+    
+    // Family Status Labels
+    movingAlone: "Déménager seul",
+    withPartnerSpouse: "Avec partenaire/époux",
+    withFamilyChildren: "Avec famille (enfants)",
     softwareDeveloper: "Développeur Logiciel",
     dataScientist: "Scientifique des Données",
     productManager: "Chef de Produit",
@@ -839,6 +854,11 @@ export const translations: Record<string, Translation> = {
     healthcareProfessional: "محترف الرعاية الصحية",
     educationProfessional: "محترف التعليم",
     otherProfessional: "محترف آخر",
+    
+    // Family Status Labels
+    movingAlone: "الانتقال لوحدي",
+    withPartnerSpouse: "مع شريك/زوج",
+    withFamilyChildren: "مع العائلة (أطفال)",
     softwareDeveloper: "مطور برمجيات",
     dataScientist: "عالم بيانات",
     productManager: "مدير منتج",
