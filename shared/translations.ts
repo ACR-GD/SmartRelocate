@@ -320,6 +320,27 @@ export interface Translation {
   whatsIncluded: string;
   comprehensiveRelocationInfo: string;
   detailedBreakdownVisa: string;
+  exactFeesDeposits: string;
+  completeTimelineDocument: string;
+  monthlyBudgetsKL: string;
+  frequentlyAskedQuestions: string;
+  isThisGuideUpToDate: string;
+  yesGuideUpdatedRegularly: string;
+  whatFormatGuide: string;
+  guideDeliveredDownloadable: string;
+  canIGetRefund: string;
+  sevenDayMoneyBack: string;
+  doINeedAdditionalConsultation: string;
+  guideCoversGeneral: string;
+  
+  // PDF Paywall Form
+  emailRequired: string;
+  pleaseEnterEmailToContinue: string;
+  emailAddress: string;
+  redirecting: string;
+  buyGuideFor19: string;
+  securePaymentStripe: string;
+  instantDownloadAfterPayment: string;
 }
 
 export const supportedLanguages = [
@@ -652,6 +673,27 @@ export const translations: Record<string, Translation> = {
     whatsIncluded: "What's Included",
     comprehensiveRelocationInfo: "Comprehensive relocation information and guides",
     detailedBreakdownVisa: "Detailed breakdown of all visa options with requirements and costs",
+    exactFeesDeposits: "Exact fees, deposits, and financial requirements for each visa type",
+    completeTimelineDocument: "Complete timeline with document preparation and submission steps",
+    monthlyBudgetsKL: "Monthly budgets for Kuala Lumpur, Penang, Johor Bahru, and other major cities",
+    frequentlyAskedQuestions: "Frequently Asked Questions",
+    isThisGuideUpToDate: "Is this guide up to date?",
+    yesGuideUpdatedRegularly: "Yes, our guide is updated regularly to reflect the latest visa requirements and policy changes as of 2024.",
+    whatFormatGuide: "What format is the guide in?",
+    guideDeliveredDownloadable: "The guide is delivered as a downloadable PDF that you can save, print, or access offline.",
+    canIGetRefund: "Can I get a refund?",
+    sevenDayMoneyBack: "We offer a 7-day money-back guarantee if you're not satisfied with the guide.",
+    doINeedAdditionalConsultation: "Do I need additional consultation?",
+    guideCoversGeneral: "The guide covers general information. For complex cases, we recommend our consultation services.",
+    
+    // PDF Paywall Form
+    emailRequired: "Email Required",
+    pleaseEnterEmailToContinue: "Please enter your email address to continue",
+    emailAddress: "Email Address",
+    redirecting: "Redirecting...",
+    buyGuideFor19: "Buy Guide for $19",
+    securePaymentStripe: "Secure payment via Stripe",
+    instantDownloadAfterPayment: "Instant download after payment",
   },
   
   fr: {
@@ -973,6 +1015,18 @@ export const translations: Record<string, Translation> = {
     whatsIncluded: "Ce qui est Inclus",
     comprehensiveRelocationInfo: "Informations et guides de relocation complets",
     detailedBreakdownVisa: "Répartition détaillée de toutes les options de visa avec exigences et coûts",
+    exactFeesDeposits: "Frais exacts, dépôts et exigences financières pour chaque type de visa",
+    completeTimelineDocument: "Chronologie complète avec préparation et soumission des documents",
+    monthlyBudgetsKL: "Budgets mensuels pour Kuala Lumpur, Penang, Johor Bahru et autres grandes villes",
+    frequentlyAskedQuestions: "Questions Fréquemment Posées",
+    isThisGuideUpToDate: "Ce guide est-il à jour ?",
+    yesGuideUpdatedRegularly: "Oui, notre guide est mis à jour régulièrement pour refléter les dernières exigences de visa et changements de politique de 2024.",
+    whatFormatGuide: "Quel est le format du guide ?",
+    guideDeliveredDownloadable: "Le guide est livré sous forme de PDF téléchargeable que vous pouvez sauvegarder, imprimer ou consulter hors ligne.",
+    canIGetRefund: "Puis-je obtenir un remboursement ?",
+    sevenDayMoneyBack: "Nous offrons une garantie de remboursement de 7 jours si vous n'êtes pas satisfait du guide.",
+    doINeedAdditionalConsultation: "Ai-je besoin d'une consultation supplémentaire ?",
+    guideCoversGeneral: "Le guide couvre les informations générales. Pour les cas complexes, nous recommandons nos services de consultation.",
   },
   
   ar: {
@@ -1294,5 +1348,17 @@ export const translations: Record<string, Translation> = {
     whatsIncluded: "ما هو مشمول",
     comprehensiveRelocationInfo: "معلومات وأدلة انتقال شاملة",
     detailedBreakdownVisa: "تفصيل مفصل لجميع خيارات الفيزا مع المتطلبات والتكاليف",
+    exactFeesDeposits: "الرسوم الدقيقة والودائع والمتطلبات المالية لكل نوع فيزا",
+    completeTimelineDocument: "جدول زمني كامل مع إعداد وتقديم الوثائق",
+    monthlyBudgetsKL: "الميزانيات الشهرية لكوالالمبور وبينانغ وجوهور باهرو والمدن الرئيسية الأخرى",
+    frequentlyAskedQuestions: "الأسئلة الشائعة",
+    isThisGuideUpToDate: "هل هذا الدليل محدث؟",
+    yesGuideUpdatedRegularly: "نعم، يتم تحديث دليلنا بانتظام ليعكس أحدث متطلبات الفيزا وتغييرات السياسات لعام 2024.",
+    whatFormatGuide: "ما هو تنسيق الدليل؟",
+    guideDeliveredDownloadable: "يتم تسليم الدليل كملف PDF قابل للتنزيل يمكنك حفظه أو طباعته أو الوصول إليه دون اتصال.",
+    canIGetRefund: "هل يمكنني الحصول على استرداد؟",
+    sevenDayMoneyBack: "نحن نقدم ضمان استرداد الأموال لمدة 7 أيام إذا لم تكن راضياً عن الدليل.",
+    doINeedAdditionalConsultation: "هل أحتاج إلى استشارة إضافية؟",
+    guideCoversGeneral: "يغطي الدليل المعلومات العامة. للحالات المعقدة، نوصي بخدمات الاستشارة لدينا.",
   },
 };
