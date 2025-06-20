@@ -416,6 +416,105 @@ export class DatabaseStorage implements IStorage {
       .returning();
     return visaType;
   }
+
+  // Blog Management
+  async createBlogPost(insertBlogPost: InsertBlogPost): Promise<BlogPost> {
+    const [blogPost] = await db
+      .insert(blogPosts)
+      .values(insertBlogPost)
+      .returning();
+    return blogPost;
+  }
+
+  async getAllBlogPosts(published?: boolean): Promise<BlogPost[]> {
+    const query = db.select().from(blogPosts);
+    
+    if (published !== undefined) {
+      return await query.where(eq(blogPosts.isPublished, published));
+    }
+    
+    return await query.orderBy(blogPosts.createdAt);
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    const [blogPost] = await db
+      .select()
+      .from(blogPosts)
+      .where(eq(blogPosts.slug, slug));
+    return blogPost;
+  }
+
+  async getBlogPostById(id: number): Promise<BlogPost | undefined> {
+    const [blogPost] = await db
+      .select()
+      .from(blogPosts)
+      .where(eq(blogPosts.id, id));
+    return blogPost;
+  }
+
+  async updateBlogPost(id: number, updates: Partial<InsertBlogPost>): Promise<BlogPost | undefined> {
+    const [blogPost] = await db
+      .update(blogPosts)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(blogPosts.id, id))
+      .returning();
+    return blogPost;
+  }
+
+  async deleteBlogPost(id: number): Promise<void> {
+    await db
+      .delete(blogPosts)
+      .where(eq(blogPosts.id, id));
+  }
+
+  async incrementBlogPostViews(id: number): Promise<void> {
+    await db
+      .update(blogPosts)
+      .set({ 
+        viewCount: sql`${blogPosts.viewCount} + 1`,
+        updatedAt: new Date()
+      })
+      .where(eq(blogPosts.id, id));
+  }
+
+  // Blog Categories
+  async createBlogCategory(insertBlogCategory: InsertBlogCategory): Promise<BlogCategory> {
+    const [blogCategory] = await db
+      .insert(blogCategories)
+      .values(insertBlogCategory)
+      .returning();
+    return blogCategory;
+  }
+
+  async getAllBlogCategories(): Promise<BlogCategory[]> {
+    return await db
+      .select()
+      .from(blogCategories)
+      .orderBy(blogCategories.nameEn);
+  }
+
+  async getBlogCategoryBySlug(slug: string): Promise<BlogCategory | undefined> {
+    const [blogCategory] = await db
+      .select()
+      .from(blogCategories)
+      .where(eq(blogCategories.slug, slug));
+    return blogCategory;
+  }
+
+  async updateBlogCategory(id: number, updates: Partial<InsertBlogCategory>): Promise<BlogCategory | undefined> {
+    const [blogCategory] = await db
+      .update(blogCategories)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(blogCategories.id, id))
+      .returning();
+    return blogCategory;
+  }
+
+  async deleteBlogCategory(id: number): Promise<void> {
+    await db
+      .delete(blogCategories)
+      .where(eq(blogCategories.id, id));
+  }
 }
 
 export class MemStorage implements IStorage {
@@ -694,8 +793,5 @@ export class MemStorage implements IStorage {
   }
 }
 
-// Import Supabase storage
-import { supabaseStorage } from "./supabase-storage";
-
-// Use Supabase for enhanced data storage and real-time capabilities
-export const storage = supabaseStorage;
+// Use DatabaseStorage for blog functionality
+export const storage = new DatabaseStorage();
