@@ -12,9 +12,10 @@ if (!process.env.STRIPE_SECRET_KEY) {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-05-28.basil",
 });
-import { insertConversationSchema, insertEmailCaptureSchema, type ChatMessage, type AssessmentResponse, type VisaEligibilityResult } from "@shared/schema";
+import { insertConversationSchema, insertEmailCaptureSchema, insertBlogPostSchema, insertBlogCategorySchema, type ChatMessage, type AssessmentResponse, type VisaEligibilityResult } from "@shared/schema";
 import { z } from "zod";
 import OpenAI from "openai";
+import { generateBlogPost, calculateReadingTime } from "./openai";
 import { relocationData, getCountriesByContinent, getRelocationInfo } from "@shared/relocationData";
 import { EligibilityScorer, type UserProfile } from "@shared/eligibilityScoring";
 import { buildSystemPrompt, buildPersonalizedPrompt } from "@shared/buildSystemPrompt";
@@ -987,6 +988,245 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
     } catch (error) {
       console.error("Admin logout error:", error);
       res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // ===== BLOG API ROUTES =====
+
+  // Get all published blog posts
+  app.get("/api/blog/posts", async (req, res) => {
+    try {
+      const posts = await storage.getAllBlogPosts(true);
+      res.json(posts);
+    } catch (error) {
+      console.error("Error fetching blog posts:", error);
+      res.status(500).json({ error: "Failed to fetch blog posts" });
+    }
+  });
+
+  // Get blog post by slug
+  app.get("/api/blog/posts/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const post = await storage.getBlogPostBySlug(slug);
+      
+      if (!post || !post.isPublished) {
+        return res.status(404).json({ error: "Blog post not found" });
+      }
+      
+      res.json(post);
+    } catch (error) {
+      console.error("Error fetching blog post:", error);
+      res.status(500).json({ error: "Failed to fetch blog post" });
+    }
+  });
+
+  // Increment blog post views
+  app.post("/api/blog/posts/:id/views", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.incrementBlogPostViews(parseInt(id));
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error incrementing views:", error);
+      res.status(500).json({ error: "Failed to increment views" });
+    }
+  });
+
+  // Get related blog posts
+  app.get("/api/blog/posts/related/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const currentPost = await storage.getBlogPostById(parseInt(id));
+      
+      if (!currentPost) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+      
+      // Get all posts and filter by similar tags
+      const allPosts = await storage.getAllBlogPosts(true);
+      const relatedPosts = allPosts
+        .filter(post => post.id !== parseInt(id))
+        .filter(post => {
+          if (!currentPost.tags || !post.tags) return false;
+          return currentPost.tags.some(tag => post.tags.includes(tag));
+        })
+        .slice(0, 4);
+      
+      res.json(relatedPosts);
+    } catch (error) {
+      console.error("Error fetching related posts:", error);
+      res.status(500).json({ error: "Failed to fetch related posts" });
+    }
+  });
+
+  // Get blog categories
+  app.get("/api/blog/categories", async (req, res) => {
+    try {
+      const categories = await storage.getAllBlogCategories();
+      res.json(categories);
+    } catch (error) {
+      console.error("Error fetching blog categories:", error);
+      res.status(500).json({ error: "Failed to fetch categories" });
+    }
+  });
+
+  // ===== ADMIN BLOG API ROUTES =====
+
+  // Get all blog posts (admin)
+  app.get("/api/admin/blog/posts", async (req, res) => {
+    try {
+      const posts = await storage.getAllBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      console.error("Error fetching admin blog posts:", error);
+      res.status(500).json({ error: "Failed to fetch blog posts" });
+    }
+  });
+
+  // Create blog post
+  app.post("/api/admin/blog/posts", async (req, res) => {
+    try {
+      const postData = req.body;
+      
+      // Calculate reading time if not provided
+      if (!postData.readingTimeMinutes && postData.contentEn) {
+        postData.readingTimeMinutes = calculateReadingTime(postData.contentEn);
+      }
+      
+      // Validate required fields
+      if (!postData.titleEn || !postData.contentEn) {
+        return res.status(400).json({ error: "Title and content in English are required" });
+      }
+      
+      // Generate slug if not provided
+      if (!postData.slug) {
+        postData.slug = postData.titleEn
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
+      }
+      
+      const post = await storage.createBlogPost(postData);
+      res.json(post);
+    } catch (error) {
+      console.error("Error creating blog post:", error);
+      res.status(500).json({ error: "Failed to create blog post" });
+    }
+  });
+
+  // Update blog post
+  app.put("/api/admin/blog/posts/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+      
+      // Calculate reading time if content changed
+      if (updates.contentEn) {
+        updates.readingTimeMinutes = calculateReadingTime(updates.contentEn);
+      }
+      
+      const post = await storage.updateBlogPost(parseInt(id), updates);
+      
+      if (!post) {
+        return res.status(404).json({ error: "Blog post not found" });
+      }
+      
+      res.json(post);
+    } catch (error) {
+      console.error("Error updating blog post:", error);
+      res.status(500).json({ error: "Failed to update blog post" });
+    }
+  });
+
+  // Delete blog post
+  app.delete("/api/admin/blog/posts/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteBlogPost(parseInt(id));
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting blog post:", error);
+      res.status(500).json({ error: "Failed to delete blog post" });
+    }
+  });
+
+  // Generate blog post with AI
+  app.post("/api/admin/blog/generate", async (req, res) => {
+    try {
+      const { prompt, title, category, keywords } = req.body;
+      
+      if (!prompt) {
+        return res.status(400).json({ error: "Prompt is required" });
+      }
+      
+      const generatedContent = await generateBlogPost({
+        prompt,
+        title,
+        category,
+        keywords
+      });
+      
+      res.json(generatedContent);
+    } catch (error) {
+      console.error("Error generating blog post:", error);
+      res.status(500).json({ error: "Failed to generate blog post with AI" });
+    }
+  });
+
+  // Create blog category
+  app.post("/api/admin/blog/categories", async (req, res) => {
+    try {
+      const categoryData = req.body;
+      
+      if (!categoryData.nameEn) {
+        return res.status(400).json({ error: "Category name in English is required" });
+      }
+      
+      // Generate slug if not provided
+      if (!categoryData.slug) {
+        categoryData.slug = categoryData.nameEn
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
+      }
+      
+      const category = await storage.createBlogCategory(categoryData);
+      res.json(category);
+    } catch (error) {
+      console.error("Error creating blog category:", error);
+      res.status(500).json({ error: "Failed to create blog category" });
+    }
+  });
+
+  // Update blog category
+  app.put("/api/admin/blog/categories/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+      
+      const category = await storage.updateBlogCategory(parseInt(id), updates);
+      
+      if (!category) {
+        return res.status(404).json({ error: "Blog category not found" });
+      }
+      
+      res.json(category);
+    } catch (error) {
+      console.error("Error updating blog category:", error);
+      res.status(500).json({ error: "Failed to update blog category" });
+    }
+  });
+
+  // Delete blog category
+  app.delete("/api/admin/blog/categories/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteBlogCategory(parseInt(id));
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting blog category:", error);
+      res.status(500).json({ error: "Failed to delete blog category" });
     }
   });
 

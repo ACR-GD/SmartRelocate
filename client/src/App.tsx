@@ -15,6 +15,9 @@ import CityComparisonPage from "@/pages/city-comparison";
 import StressReliefPage from "@/pages/stress-relief";
 import VisaDetailPage from "@/pages/visa-detail";
 import VisaOverviewPage from "@/pages/visa-overview";
+import BlogPage from "@/pages/blog";
+import BlogDetailPage from "@/pages/blog-detail";
+import AdminBlogPage from "@/pages/admin-blog";
 
 function Router() {
   return (
