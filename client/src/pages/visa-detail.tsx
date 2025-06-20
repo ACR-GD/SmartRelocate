@@ -473,7 +473,7 @@ export default function VisaDetailPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
-                  onClick={() => window.location.href = '/#chat'}
+                  onClick={() => window.location.href = '/#wizard'}
                   className="bg-white text-blue-600 hover:bg-gray-100"
                   size="lg"
                 >
