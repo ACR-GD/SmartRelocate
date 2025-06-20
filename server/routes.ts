@@ -39,8 +39,6 @@ const requireAdminAuth = (req: any, res: any, next: any) => {
 
     const token = authHeader.substring(7);
     
-    console.log(`Auth check: Token ${token}, Sessions:`, Array.from(adminSessions));
-    
     if (!adminSessions.has(token)) {
       return res.status(401).json({ message: "Invalid token" });
     }
@@ -969,8 +967,6 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
       // Generate a simple token (in production, use JWT or similar)
       const token = Math.random().toString(36).substring(2) + Date.now().toString(36);
       adminSessions.add(token);
-      
-      console.log(`Admin login: Generated token ${token}, Sessions:`, Array.from(adminSessions));
 
       res.json({ 
         token,
