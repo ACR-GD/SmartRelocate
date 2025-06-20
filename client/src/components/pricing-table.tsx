@@ -183,10 +183,10 @@ export default function PricingTable() {
         {/* Mobile View - Stack cards */}
         <div className="lg:hidden space-y-4">
           {[
-            { name: t.free, price: "$0", period: t.forever, color: "gray", current: true, planKey: "free" },
-            { name: t.starterPlan, price: "$19", period: t.oneTime, color: "blue", recommended: false, planKey: "starter" },
-            { name: t.professionalPlan, price: "$9", period: t.perMonth, color: "purple", recommended: true, planKey: "pro" },
-            { name: t.enterprisePlan, price: "$499", period: t.fullService, color: "amber", recommended: false, planKey: "premium" }
+            { name: t.freePlan, price: "$0", period: t.forever, description: t.perfectForExploringOptions, color: "gray", current: true, planKey: "free" },
+            { name: t.starterPlan, price: "$19", period: t.oneTime, description: t.oneTime, color: "blue", recommended: false, planKey: "starter" },
+            { name: t.professionalPlan, price: "$9", period: t.perMonth, description: t.professionalPlanDescription, color: "purple", recommended: true, planKey: "pro" },
+            { name: t.premiumPlan, price: "$499", period: t.fullService, description: t.fullService, color: "amber", recommended: false, planKey: "premium" }
           ].map((plan, planIndex) => (
             <Card key={plan.name} className="overflow-hidden">
               <CardHeader className="text-center bg-white border-b relative">
@@ -200,6 +200,7 @@ export default function PricingTable() {
                 </CardTitle>
                 <p className="text-2xl font-bold text-gray-900 mt-2">{plan.price}</p>
                 <p className="text-sm text-gray-500">{plan.period}</p>
+                <p className="text-xs text-gray-600 mt-1">{plan.description}</p>
                 <Button 
                   className={`mt-4 w-full ${
                     plan.current 
@@ -254,9 +255,10 @@ export default function PricingTable() {
                   <CardTitle className="text-sm lg:text-base">{t.compareAllFeatures}</CardTitle>
                 </div>
                 <div className="text-center min-w-0">
-                  <CardTitle className="text-gray-600 text-sm lg:text-base">{t.free}</CardTitle>
+                  <CardTitle className="text-gray-600 text-sm lg:text-base">{t.freePlan}</CardTitle>
                   <p className="text-xl lg:text-2xl font-bold text-gray-900 mt-2">$0</p>
                   <p className="text-xs lg:text-sm text-gray-500">{t.forever}</p>
+                  <p className="text-xs text-gray-600 mt-1">{t.perfectForExploringOptions}</p>
                   <Button 
                     variant="outline" 
                     className="mt-4 w-full text-xs lg:text-sm"
@@ -269,6 +271,7 @@ export default function PricingTable() {
                   <CardTitle className="text-blue-600 text-sm lg:text-base">{t.starterPlan}</CardTitle>
                   <p className="text-xl lg:text-2xl font-bold text-gray-900 mt-2">$19</p>
                   <p className="text-xs lg:text-sm text-gray-500">{t.oneTime}</p>
+                  <p className="text-xs text-gray-600 mt-1">{t.oneTime}</p>
                   <Button 
                     className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-xs lg:text-sm"
                     onClick={() => window.location.href = '/pdf-guide'}
@@ -283,6 +286,7 @@ export default function PricingTable() {
                   <CardTitle className="text-purple-600 mt-4 text-sm lg:text-base">{t.professionalPlan}</CardTitle>
                   <p className="text-xl lg:text-2xl font-bold text-gray-900 mt-2">$9</p>
                   <p className="text-xs lg:text-sm text-gray-500">{t.perMonth}</p>
+                  <p className="text-xs text-gray-600 mt-1">{t.professionalPlanDescription}</p>
                   <Button 
                     className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-xs lg:text-sm"
                     onClick={() => alert('Pro subscription coming soon!')}
@@ -294,6 +298,7 @@ export default function PricingTable() {
                   <CardTitle className="text-amber-600 text-sm lg:text-base">{t.premiumPlan}</CardTitle>
                   <p className="text-xl lg:text-2xl font-bold text-gray-900 mt-2">$499</p>
                   <p className="text-xs lg:text-sm text-gray-500">{t.fullService}</p>
+                  <p className="text-xs text-gray-600 mt-1">{t.fullService}</p>
                   <Button 
                     className="mt-4 w-full bg-amber-600 hover:bg-amber-700 text-xs lg:text-sm"
                     onClick={() => alert('Premium service available! Contact us.')}
