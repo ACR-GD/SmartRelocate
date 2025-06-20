@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import { Plus, Edit, Trash2, Eye, Calendar, Sparkles, Save, X } from "lucide-rea
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { apiRequest } from "@/lib/queryClient";
+import AdminLogin from "@/components/admin-login";
 
 interface BlogPost {
   id: number;
@@ -47,6 +48,7 @@ interface AIGenerationRequest {
 }
 
 export default function AdminBlogPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isAIDialogOpen, setIsAIDialogOpen] = useState(false);
@@ -76,17 +78,63 @@ export default function AdminBlogPage() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
+  // Authentication check
+  useEffect(() => {
+    const token = localStorage.getItem('admin_token');
+    if (token) {
+      fetch('/api/admin/verify', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .then(res => {
+        if (res.ok) {
+          setIsAuthenticated(true);
+        } else {
+          localStorage.removeItem('admin_token');
+        }
+      })
+      .catch(() => {
+        localStorage.removeItem('admin_token');
+      });
+    }
+  }, []);
+
+  const handleLogin = (token: string) => {
+    setIsAuthenticated(true);
+  };
+
+  // Show login form if not authenticated
+  if (!isAuthenticated) {
+    return <AdminLogin onLogin={handleLogin} />;
+  }
+
   const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
     queryKey: ['/api/admin/blog/posts'],
+    queryFn: async () => {
+      const token = localStorage.getItem('admin_token');
+      const response = await fetch('/api/admin/blog/posts', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) throw new Error('Failed to fetch posts');
+      return response.json();
+    }
   });
 
   const createPostMutation = useMutation({
     mutationFn: async (postData: any) => {
-      return await apiRequest('/api/admin/blog/posts', {
+      const token = localStorage.getItem('admin_token');
+      const response = await fetch('/api/admin/blog/posts', {
         method: 'POST',
         body: JSON.stringify(postData),
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       });
+      if (!response.ok) throw new Error('Failed to create post');
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/blog/posts'] });
