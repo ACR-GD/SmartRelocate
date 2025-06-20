@@ -1,5 +1,6 @@
 import { db } from "./db";
 import { visaTypes } from "@shared/schema";
+import { eq } from "drizzle-orm";
 
 const visaTypesData = [
   {

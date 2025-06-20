@@ -14,6 +14,7 @@ import PdfSuccessPage from "@/pages/pdf-success";
 import CityComparisonPage from "@/pages/city-comparison";
 import StressReliefPage from "@/pages/stress-relief";
 import VisaDetailPage from "@/pages/visa-detail";
+import VisaOverviewPage from "@/pages/visa-overview";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/city-comparison" component={CityComparisonPage}/>
       <Route path="/stress-relief" component={StressReliefPage}/>
       <Route path="/admin" component={AdminPage}/>
+      <Route path="/visa" component={VisaOverviewPage}/>
       <Route path="/visa/:slug" component={VisaDetailPage}/>
       <Route component={NotFound} />
     </Switch>

@@ -33,10 +33,154 @@ export default function VisaDetailPage() {
   const { userPlan, hasAccess } = useUserPlan();
   const t = useTranslation();
 
-  const { data: visa, isLoading } = useQuery<VisaType>({
-    queryKey: ['/api/visa-types', slug],
-    enabled: !!slug
-  });
+  // Hardcoded visa data based on the CSV provided
+  const visaTypesData: Record<string, VisaType> = {
+    "de-rantau-nomad-pass": {
+      id: 1,
+      name: "DE Rantau Nomad Pass",
+      slug: "de-rantau-nomad-pass",
+      duration: "3 to 12 months (renewable once)",
+      eligibility: "Remote tech/non-tech workers with contracts & income proof",
+      minimumIncome: "USD 24,000 (tech) / USD 60,000 (non-tech)",
+      applicationFee: "RM 1,000 (main) / RM 500 (dependent)",
+      description: "Perfect for digital nomads and remote workers looking to experience Malaysia while working for international companies.",
+      requirements: [
+        "Valid passport with at least 6 months validity",
+        "Employment contract or freelance agreements",
+        "Proof of income (bank statements, tax documents)",
+        "Clean criminal record check"
+      ],
+      benefits: [
+        "Work remotely for international companies",
+        "Multiple entry visa for easy travel",
+        "Fast-track immigration lanes at airports",
+        "Tax incentives for eligible participants",
+        "Access to co-working spaces and digital nomad community",
+        "Spouse and children can accompany (dependent pass)"
+      ],
+      applicationProcess: [
+        "Submit online application through Malaysia Digital Economy Corporation (MDEC)",
+        "Upload required documents and pay application fee",
+        "Wait for initial review and approval (typically 2-3 weeks)",
+        "Receive approval letter and visa sticker instructions",
+        "Visit Malaysian embassy/consulate for visa sticker placement",
+        "Enter Malaysia and complete immigration procedures"
+      ],
+      requiredDocuments: [
+        "Completed application form",
+        "Passport-sized photographs",
+        "Copy of passport bio page",
+        "Employment contract or client agreements",
+        "Bank statements (last 3 months)",
+        "University degree or professional certificates",
+        "Criminal background check (apostilled)",
+        "Medical examination report",
+        "Health insurance policy",
+        "Proof of accommodation in Malaysia"
+      ],
+      processingTime: "2-4 weeks",
+      renewability: "Renewable once for the same duration",
+      familyInclusion: true,
+      workRights: true,
+      isPremium: false
+    },
+    "tech-entrepreneur-new": {
+      id: 2,
+      name: "Tech Entrepreneur (New)",
+      slug: "tech-entrepreneur-new",
+      duration: "1 year (renewable upon achievement)",
+      eligibility: "Tech founder with no prior track record",
+      minimumIncome: "RM 50,000 bank savings",
+      applicationFee: "RM 2,700",
+      description: "Designed for aspiring tech entrepreneurs starting their first venture in Malaysia's thriving startup ecosystem.",
+      requirements: [
+        "Tech-related business proposal",
+        "Minimum RM 50,000 in personal savings",
+        "Business plan with clear milestones",
+        "Letter of recommendation from industry professional"
+      ],
+      benefits: [
+        "Access to Malaysia's startup ecosystem",
+        "Networking opportunities with investors",
+        "Government support programs",
+        "Tax incentives for new businesses",
+        "Work authorization for your own company",
+        "Path to permanent residency"
+      ],
+      applicationProcess: [
+        "Prepare comprehensive business plan",
+        "Submit application to Malaysia Digital Economy Corporation (MDEC)",
+        "Attend virtual or in-person interview",
+        "Receive conditional approval",
+        "Establish business entity in Malaysia",
+        "Complete final documentation and receive visa"
+      ],
+      requiredDocuments: [
+        "Detailed business plan (minimum 20 pages)",
+        "Financial statements and bank certificates",
+        "Academic qualifications and certifications",
+        "Professional references and recommendations",
+        "Prototype or proof of concept documentation",
+        "Market research and competitor analysis",
+        "Personal statement and motivation letter"
+      ],
+      processingTime: "4-8 weeks",
+      renewability: "Renewable based on business performance and milestones achieved",
+      familyInclusion: false,
+      workRights: true,
+      isPremium: true
+    },
+    "employment-pass": {
+      id: 6,
+      name: "Employment Pass",
+      slug: "employment-pass",
+      duration: "1 to 5 years (based on contract)",
+      eligibility: "Offer of employment from Malaysian company",
+      minimumIncome: "Varies by job/sector",
+      applicationFee: "Varies",
+      description: "Standard work visa for skilled professionals with job offers from Malaysian companies.",
+      requirements: [
+        "Job offer from Malaysian company",
+        "University degree or professional qualifications",
+        "Relevant work experience",
+        "Medical examination"
+      ],
+      benefits: [
+        "Legal authorization to work in Malaysia",
+        "Multiple entry visa",
+        "Ability to open bank accounts",
+        "Access to healthcare",
+        "Family dependent visa options",
+        "Path to permanent residency"
+      ],
+      applicationProcess: [
+        "Malaysian employer submits application to Immigration Department",
+        "Approval letter issued to employer",
+        "Employee applies for visa at Malaysian embassy/consulate",
+        "Complete medical examination",
+        "Submit passport for visa sticker",
+        "Enter Malaysia and complete registration"
+      ],
+      requiredDocuments: [
+        "Passport with minimum 18 months validity",
+        "Employment contract",
+        "Academic certificates (verified)",
+        "Professional qualification certificates",
+        "Resume and work experience letters",
+        "Medical examination report",
+        "Police clearance certificate",
+        "Passport-sized photographs"
+      ],
+      processingTime: "4-6 weeks",
+      renewability: "Renewable based on continued employment",
+      familyInclusion: true,
+      workRights: true,
+      isPremium: false
+    }
+  };
+
+  const visa = slug ? visaTypesData[slug] : null;
+  const isLoading = false;
 
   const handleUpgrade = () => {
     window.location.href = '/#pricing';
