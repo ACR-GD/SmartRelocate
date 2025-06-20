@@ -237,13 +237,47 @@ export default function BlogDetailPage() {
             className="prose prose-lg max-w-none text-gray-800 leading-relaxed"
             dir={language === 'ar' ? 'rtl' : 'ltr'}
           >
-            {content?.split('\n').map((paragraph, index) => (
-              paragraph.trim() ? (
-                <p key={index} className="mb-4">
-                  {paragraph.trim()}
-                </p>
-              ) : null
-            ))}
+            {content?.split('\n').map((line, index) => {
+              const trimmedLine = line.trim();
+              if (!trimmedLine) return <br key={index} />;
+              
+              // Handle headers
+              if (trimmedLine.startsWith('### ')) {
+                return <h3 key={index} className="text-xl font-bold text-gray-900 mt-8 mb-4">{trimmedLine.slice(4)}</h3>;
+              }
+              if (trimmedLine.startsWith('## ')) {
+                return <h2 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4">{trimmedLine.slice(3)}</h2>;
+              }
+              if (trimmedLine.startsWith('# ')) {
+                return <h1 key={index} className="text-3xl font-bold text-gray-900 mt-8 mb-4">{trimmedLine.slice(2)}</h1>;
+              }
+              
+              // Handle numbered lists
+              if (/^\d+\.\s/.test(trimmedLine)) {
+                const text = trimmedLine.replace(/^\d+\.\s/, '');
+                const boldMatch = text.match(/\*\*(.*?)\*\*/);
+                const title = boldMatch ? boldMatch[1] : text.split(':')[0];
+                const description = text.includes(':') ? text.split(':').slice(1).join(':').trim() : '';
+                
+                return (
+                  <div key={index} className="mb-4 pl-4 border-l-2 border-blue-100">
+                    <p className="font-semibold text-gray-900 mb-1">{title}</p>
+                    {description && (
+                      <p className="text-gray-700">{description}</p>
+                    )}
+                  </div>
+                );
+              }
+              
+              // Handle regular paragraphs with bold text
+              const processedText = trimmedLine
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+              
+              return (
+                <p key={index} className="mb-4" dangerouslySetInnerHTML={{ __html: processedText }} />
+              );
+            })}
           </div>
         </motion.div>
 
