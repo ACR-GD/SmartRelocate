@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, Clock, Eye, Tag, ArrowLeft, Share2 } from "lucide-react";
-import { useTranslation } from "@/hooks/use-language";
+import { useLanguage } from "@/hooks/use-language";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
@@ -33,24 +33,39 @@ interface BlogPost {
 
 export default function BlogDetailPage() {
   const { slug } = useParams();
-  const { language } = useTranslation();
+  const { language, t } = useTranslation();
   const queryClient = useQueryClient();
 
   const { data: post, isLoading } = useQuery<BlogPost>({
     queryKey: ['/api/blog/posts', slug],
+    queryFn: async () => {
+      if (!slug) throw new Error('No slug provided');
+      const response = await fetch(`/api/blog/posts/${slug}`);
+      if (!response.ok) throw new Error('Failed to fetch blog post');
+      return response.json();
+    },
     enabled: !!slug
   });
 
   const { data: relatedPosts = [] } = useQuery<BlogPost[]>({
     queryKey: ['/api/blog/posts/related', post?.id],
+    queryFn: async () => {
+      if (!post?.id) throw new Error('No post ID provided');
+      const response = await fetch(`/api/blog/posts/related/${post.id}`);
+      if (!response.ok) throw new Error('Failed to fetch related posts');
+      return response.json();
+    },
     enabled: !!post?.id
   });
 
   const incrementViewsMutation = useMutation({
     mutationFn: async (postId: number) => {
-      await apiRequest(`/api/blog/posts/${postId}/views`, {
-        method: 'POST'
+      const response = await fetch(`/api/blog/posts/${postId}/views`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
       });
+      if (!response.ok) throw new Error('Failed to increment views');
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/blog/posts', slug] });
