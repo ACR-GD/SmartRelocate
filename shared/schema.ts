@@ -113,6 +113,28 @@ export const pdfPurchases = pgTable("pdf_purchases", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const visaTypes = pgTable("visa_types", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull().unique(),
+  slug: text("slug").notNull().unique(),
+  duration: text("duration").notNull(),
+  eligibility: text("eligibility").notNull(),
+  minimumIncome: text("minimum_income"),
+  applicationFee: text("application_fee"),
+  description: text("description"),
+  requirements: text("requirements").array(),
+  benefits: text("benefits").array(),
+  applicationProcess: text("application_process").array(),
+  requiredDocuments: text("required_documents").array(),
+  processingTime: text("processing_time"),
+  renewability: text("renewability"),
+  familyInclusion: boolean("family_inclusion").default(false),
+  workRights: boolean("work_rights").default(false),
+  isPremium: boolean("is_premium").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 export const insertConversationSchema = createInsertSchema(conversations).omit({
   id: true,
   createdAt: true,
@@ -153,6 +175,12 @@ export const insertPdfPurchaseSchema = createInsertSchema(pdfPurchases).omit({
   updatedAt: true,
 });
 
+export const insertVisaTypeSchema = createInsertSchema(visaTypes).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 export type Conversation = typeof conversations.$inferSelect;
 export type InsertConversation = z.infer<typeof insertConversationSchema>;
 export type EmailCapture = typeof emailCaptures.$inferSelect;
@@ -167,6 +195,8 @@ export type AdminUser = typeof adminUsers.$inferSelect;
 export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
 export type PdfPurchase = typeof pdfPurchases.$inferSelect;
 export type InsertPdfPurchase = z.infer<typeof insertPdfPurchaseSchema>;
+export type VisaType = typeof visaTypes.$inferSelect;
+export type InsertVisaType = z.infer<typeof insertVisaTypeSchema>;
 
 export interface ChatMessage {
   id: string;

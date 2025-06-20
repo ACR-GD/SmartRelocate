@@ -6,6 +6,7 @@ import {
   consultationBookings,
   adminUsers,
   pdfPurchases,
+  visaTypes,
   type Conversation, 
   type InsertConversation, 
   type EmailCapture, 
@@ -20,6 +21,8 @@ import {
   type InsertAdminUser,
   type PdfPurchase,
   type InsertPdfPurchase,
+  type VisaType,
+  type InsertVisaType,
   type ChatMessage 
 } from "@shared/schema";
 import { db } from "./db";
@@ -66,6 +69,12 @@ export interface IStorage {
   getPdfPurchaseBySessionId(sessionId: string): Promise<PdfPurchase | undefined>;
   updatePdfPurchase(id: number, updates: Partial<InsertPdfPurchase>): Promise<PdfPurchase | undefined>;
   incrementDownloadCount(id: number): Promise<void>;
+  
+  // Visa Types Management
+  createVisaType(visaType: InsertVisaType): Promise<VisaType>;
+  getAllVisaTypes(): Promise<VisaType[]>;
+  getVisaTypeBySlug(slug: string): Promise<VisaType | undefined>;
+  updateVisaType(id: number, updates: Partial<InsertVisaType>): Promise<VisaType | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -350,6 +359,39 @@ export class DatabaseStorage implements IStorage {
         })
         .where(eq(pdfPurchases.id, id));
     }
+  }
+
+  // Visa Types Management
+  async createVisaType(insertVisaType: InsertVisaType): Promise<VisaType> {
+    const [visaType] = await db
+      .insert(visaTypes)
+      .values(insertVisaType)
+      .returning();
+    return visaType;
+  }
+
+  async getAllVisaTypes(): Promise<VisaType[]> {
+    return await db
+      .select()
+      .from(visaTypes)
+      .orderBy(visaTypes.name);
+  }
+
+  async getVisaTypeBySlug(slug: string): Promise<VisaType | undefined> {
+    const [visaType] = await db
+      .select()
+      .from(visaTypes)
+      .where(eq(visaTypes.slug, slug));
+    return visaType;
+  }
+
+  async updateVisaType(id: number, updates: Partial<InsertVisaType>): Promise<VisaType | undefined> {
+    const [visaType] = await db
+      .update(visaTypes)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(visaTypes.id, id))
+      .returning();
+    return visaType;
   }
 }
 
