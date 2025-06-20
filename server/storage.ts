@@ -504,7 +504,7 @@ export class DatabaseStorage implements IStorage {
   async updateBlogCategory(id: number, updates: Partial<InsertBlogCategory>): Promise<BlogCategory | undefined> {
     const [blogCategory] = await db
       .update(blogCategories)
-      .set({ ...updates, updatedAt: new Date() })
+      .set({ ...updates })
       .where(eq(blogCategories.id, id))
       .returning();
     return blogCategory;

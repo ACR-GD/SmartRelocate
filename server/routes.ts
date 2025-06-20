@@ -1049,7 +1049,7 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
         .filter(post => post.id !== parseInt(id))
         .filter(post => {
           if (!currentPost.tags || !post.tags) return false;
-          return currentPost.tags.some(tag => post.tags.includes(tag));
+          return currentPost.tags.some((tag: string) => post.tags!.includes(tag));
         })
         .slice(0, 4);
       
