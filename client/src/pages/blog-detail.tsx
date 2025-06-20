@@ -33,7 +33,7 @@ interface BlogPost {
 
 export default function BlogDetailPage() {
   const { slug } = useParams();
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const queryClient = useQueryClient();
 
   const { data: post, isLoading } = useQuery<BlogPost>({

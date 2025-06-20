@@ -40,6 +40,22 @@ interface BlogPost {
   updatedAt: string;
 }
 
+interface FormData {
+  titleEn: string;
+  titleFr: string;
+  titleAr: string;
+  contentEn: string;
+  contentFr: string;
+  contentAr: string;
+  excerptEn: string;
+  excerptFr: string;
+  excerptAr: string;
+  featuredImageUrl: string;
+  isPublished: boolean;
+  tags: string[];
+  seoKeywords: string[];
+}
+
 interface AIGenerationRequest {
   prompt: string;
   title?: string;
@@ -55,7 +71,7 @@ export default function AdminBlogPage() {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     titleEn: '',
     titleFr: '',
     titleAr: '',
@@ -67,8 +83,8 @@ export default function AdminBlogPage() {
     excerptAr: '',
     featuredImageUrl: '',
     isPublished: false,
-    tags: [] as string[],
-    seoKeywords: [] as string[],
+    tags: [],
+    seoKeywords: [],
   });
 
   const [aiPrompt, setAiPrompt] = useState('');
@@ -588,8 +604,8 @@ function BlogPostForm({
   addKeyword,
   removeKeyword
 }: {
-  formData: any;
-  setFormData: any;
+  formData: FormData;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   onSubmit: () => void;
   onCancel: () => void;
   isLoading: boolean;
@@ -618,7 +634,7 @@ function BlogPostForm({
               <Input
                 id="title-en"
                 value={formData.titleEn}
-                onChange={(e) => setFormData(prev => ({ ...prev, titleEn: e.target.value }))}
+                onChange={(e) => setFormData((prev: FormData) => ({ ...prev, titleEn: e.target.value }))}
                 placeholder="Enter title in English"
               />
             </div>
@@ -627,7 +643,7 @@ function BlogPostForm({
               <Input
                 id="title-fr"
                 value={formData.titleFr}
-                onChange={(e) => setFormData(prev => ({ ...prev, titleFr: e.target.value }))}
+                onChange={(e) => setFormData((prev: FormData) => ({ ...prev, titleFr: e.target.value }))}
                 placeholder="Enter title in French"
               />
             </div>
@@ -636,7 +652,7 @@ function BlogPostForm({
               <Input
                 id="title-ar"
                 value={formData.titleAr}
-                onChange={(e) => setFormData(prev => ({ ...prev, titleAr: e.target.value }))}
+                onChange={(e) => setFormData((prev: FormData) => ({ ...prev, titleAr: e.target.value }))}
                 placeholder="Enter title in Arabic"
                 dir="rtl"
               />
@@ -652,7 +668,7 @@ function BlogPostForm({
               <Textarea
                 id="content-en"
                 value={formData.contentEn}
-                onChange={(e) => setFormData(prev => ({ ...prev, contentEn: e.target.value }))}
+                onChange={(e) => setFormData((prev: FormData) => ({ ...prev, contentEn: e.target.value }))}
                 placeholder="Enter content in English (HTML supported)"
                 rows={10}
               />
@@ -662,7 +678,7 @@ function BlogPostForm({
               <Textarea
                 id="content-fr"
                 value={formData.contentFr}
-                onChange={(e) => setFormData(prev => ({ ...prev, contentFr: e.target.value }))}
+                onChange={(e) => setFormData((prev: FormData) => ({ ...prev, contentFr: e.target.value }))}
                 placeholder="Enter content in French (HTML supported)"
                 rows={10}
               />
@@ -672,7 +688,7 @@ function BlogPostForm({
               <Textarea
                 id="content-ar"
                 value={formData.contentAr}
-                onChange={(e) => setFormData(prev => ({ ...prev, contentAr: e.target.value }))}
+                onChange={(e) => setFormData((prev: FormData) => ({ ...prev, contentAr: e.target.value }))}
                 placeholder="Enter content in Arabic (HTML supported)"
                 rows={10}
                 dir="rtl"
@@ -689,7 +705,7 @@ function BlogPostForm({
               <Textarea
                 id="excerpt-en"
                 value={formData.excerptEn}
-                onChange={(e) => setFormData(prev => ({ ...prev, excerptEn: e.target.value }))}
+                onChange={(e) => setFormData((prev: FormData) => ({ ...prev, excerptEn: e.target.value }))}
                 placeholder="Brief summary in English"
                 rows={3}
               />
@@ -699,7 +715,7 @@ function BlogPostForm({
               <Textarea
                 id="excerpt-fr"
                 value={formData.excerptFr}
-                onChange={(e) => setFormData(prev => ({ ...prev, excerptFr: e.target.value }))}
+                onChange={(e) => setFormData((prev: FormData) => ({ ...prev, excerptFr: e.target.value }))}
                 placeholder="Brief summary in French"
                 rows={3}
               />
@@ -709,7 +725,7 @@ function BlogPostForm({
               <Textarea
                 id="excerpt-ar"
                 value={formData.excerptAr}
-                onChange={(e) => setFormData(prev => ({ ...prev, excerptAr: e.target.value }))}
+                onChange={(e) => setFormData((prev: FormData) => ({ ...prev, excerptAr: e.target.value }))}
                 placeholder="Brief summary in Arabic"
                 rows={3}
                 dir="rtl"
@@ -807,7 +823,7 @@ function BlogPostForm({
             <Input
               id="featured-image"
               value={formData.featuredImageUrl}
-              onChange={(e) => setFormData(prev => ({ ...prev, featuredImageUrl: e.target.value }))}
+              onChange={(e) => setFormData((prev: FormData) => ({ ...prev, featuredImageUrl: e.target.value }))}
               placeholder="https://example.com/image.jpg"
             />
           </div>
@@ -817,7 +833,7 @@ function BlogPostForm({
             <Switch
               id="published"
               checked={formData.isPublished}
-              onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isPublished: checked }))}
+              onCheckedChange={(checked) => setFormData((prev: FormData) => ({ ...prev, isPublished: checked }))}
             />
             <Label htmlFor="published">Publish immediately</Label>
           </div>
