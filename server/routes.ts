@@ -154,6 +154,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get all visa types
+  app.get("/api/visa-types", async (req, res) => {
+    try {
+      const visaTypes = await storage.getAllVisaTypes();
+      res.json(visaTypes);
+    } catch (error) {
+      console.error("Error fetching visa types:", error);
+      res.status(500).json({ error: "Failed to fetch visa types" });
+    }
+  });
+
+  // Get specific visa type by slug
+  app.get("/api/visa-types/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const visaType = await storage.getVisaTypeBySlug(slug);
+      
+      if (!visaType) {
+        return res.status(404).json({ error: "Visa type not found" });
+      }
+      
+      res.json(visaType);
+    } catch (error) {
+      console.error("Error fetching visa type:", error);
+      res.status(500).json({ error: "Failed to fetch visa type" });
+    }
+  });
+
   // Get countries by continent
   app.get("/api/countries/:continent", async (req, res) => {
     try {
