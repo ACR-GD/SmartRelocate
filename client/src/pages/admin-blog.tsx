@@ -290,7 +290,6 @@ export default function AdminBlogPage() {
     const postData = {
       ...formData,
       slug: formData.titleEn.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
-      publishedAt: formData.isPublished ? new Date().toISOString() : null,
     };
 
     if (selectedPost) {
