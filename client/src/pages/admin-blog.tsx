@@ -140,11 +140,17 @@ export default function AdminBlogPage() {
 
   const updatePostMutation = useMutation({
     mutationFn: async ({ id, data }: { id: number; data: any }) => {
-      return await apiRequest(`/api/admin/blog/posts/${id}`, {
+      const token = localStorage.getItem('admin_token');
+      const response = await fetch(`/api/admin/blog/posts/${id}`, {
         method: 'PUT',
         body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       });
+      if (!response.ok) throw new Error('Failed to update post');
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/blog/posts'] });
@@ -160,9 +166,16 @@ export default function AdminBlogPage() {
 
   const deletePostMutation = useMutation({
     mutationFn: async (id: number) => {
-      return await apiRequest(`/api/admin/blog/posts/${id}`, {
-        method: 'DELETE'
+      const token = localStorage.getItem('admin_token');
+      const response = await fetch(`/api/admin/blog/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       });
+      if (!response.ok) throw new Error('Failed to delete post');
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/blog/posts'] });
@@ -175,11 +188,17 @@ export default function AdminBlogPage() {
 
   const generateWithAIMutation = useMutation({
     mutationFn: async (request: AIGenerationRequest) => {
-      return await apiRequest('/api/admin/blog/generate', {
+      const token = localStorage.getItem('admin_token');
+      const response = await fetch('/api/admin/blog/generate', {
         method: 'POST',
         body: JSON.stringify(request),
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       });
+      if (!response.ok) throw new Error('Failed to generate blog post');
+      return response.json();
     },
     onSuccess: (data: any) => {
       setFormData({
