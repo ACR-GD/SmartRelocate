@@ -33,7 +33,7 @@ interface BlogPost {
 
 export default function BlogDetailPage() {
   const { slug } = useParams();
-  const { language, t } = useTranslation();
+  const { language, t } = useLanguage();
   const queryClient = useQueryClient();
 
   const { data: post, isLoading } = useQuery<BlogPost>({
@@ -86,9 +86,13 @@ export default function BlogDetailPage() {
     return { title, content };
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString(language === 'fr' ? 'fr-FR' : 
-                                                  language === 'ar' ? 'ar-SA' : 'en-US', {
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return 'No date available';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'Invalid date';
+    
+    return date.toLocaleDateString(language === 'fr' ? 'fr-FR' : 
+                                  language === 'ar' ? 'ar-SA' : 'en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -230,10 +234,17 @@ export default function BlogDetailPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <div 
-            className="prose prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: content }}
+            className="prose prose-lg max-w-none text-gray-800 leading-relaxed"
             dir={language === 'ar' ? 'rtl' : 'ltr'}
-          />
+          >
+            {content?.split('\n').map((paragraph, index) => (
+              paragraph.trim() ? (
+                <p key={index} className="mb-4">
+                  {paragraph.trim()}
+                </p>
+              ) : null
+            ))}
+          </div>
         </motion.div>
 
         {/* Related Articles */}
