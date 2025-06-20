@@ -63,6 +63,7 @@ export default function Home() {
             <div className="hidden md:flex items-center space-x-3 lg:space-x-6">
               <a href="#how-it-works" className="text-gray-600 hover:text-red-600 transition-colors text-sm lg:text-base">{t.howItWorksTitle}</a>
               <Link href="/visa" className="text-gray-600 hover:text-red-600 transition-colors text-sm lg:text-base">{t.visaTypesTitle}</Link>
+              <Link href="/blog" className="text-gray-600 hover:text-red-600 transition-colors text-sm lg:text-base">📝 <span className="hidden xl:inline">Blog</span></Link>
               <a href="/city-comparison" className="text-gray-600 hover:text-red-600 transition-colors text-sm lg:text-base">🏙️ <span className="hidden xl:inline">{t.compareMalaysianCities}</span></a>
               <a href="/pdf-guide" className="text-gray-600 hover:text-red-600 transition-colors text-sm lg:text-base">📄 <span className="hidden xl:inline">{t.getPdfGuide}</span></a>
               <button 
@@ -83,6 +84,7 @@ export default function Home() {
             <div className="md:hidden border-t border-gray-200 py-4 space-y-3">
               <a href="#how-it-works" onClick={() => setShowMobileMenu(false)} className="block text-gray-600 hover:text-red-600 transition-colors py-2">{t.howItWorksTitle}</a>
               <Link href="/visa" onClick={() => setShowMobileMenu(false)} className="block text-gray-600 hover:text-red-600 transition-colors py-2">{t.visaTypesTitle}</Link>
+              <Link href="/blog" onClick={() => setShowMobileMenu(false)} className="block text-gray-600 hover:text-red-600 transition-colors py-2">📝 Blog</Link>
               <a href="/city-comparison" onClick={() => setShowMobileMenu(false)} className="block text-gray-600 hover:text-red-600 transition-colors py-2">🏙️ {t.compareMalaysianCities}</a>
               <a href="/pdf-guide" onClick={() => setShowMobileMenu(false)} className="block text-gray-600 hover:text-red-600 transition-colors py-2">📄 {t.getPdfGuide}</a>
               <button 

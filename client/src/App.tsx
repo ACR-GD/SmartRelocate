@@ -29,6 +29,9 @@ function Router() {
       <Route path="/city-comparison" component={CityComparisonPage}/>
       <Route path="/stress-relief" component={StressReliefPage}/>
       <Route path="/admin" component={AdminPage}/>
+      <Route path="/admin/blog" component={AdminBlogPage}/>
+      <Route path="/blog" component={BlogPage}/>
+      <Route path="/blog/:slug" component={BlogDetailPage}/>
       <Route path="/visa" component={VisaOverviewPage}/>
       <Route path="/visa/:slug" component={VisaDetailPage}/>
       <Route component={NotFound} />
