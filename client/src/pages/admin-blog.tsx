@@ -98,15 +98,6 @@ export default function AdminBlogPage() {
     }
   }, []);
 
-  const handleLogin = (token: string) => {
-    setIsAuthenticated(true);
-  };
-
-  // Show login form if not authenticated
-  if (!isAuthenticated) {
-    return <AdminLogin onLogin={handleLogin} />;
-  }
-
   const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
     queryKey: ['/api/admin/blog/posts'],
     queryFn: async () => {
@@ -325,6 +316,15 @@ export default function AdminBlogPage() {
       minute: '2-digit'
     });
   };
+
+  const handleLogin = (token: string) => {
+    setIsAuthenticated(true);
+  };
+
+  // Show login form if not authenticated
+  if (!isAuthenticated) {
+    return <AdminLogin onLogin={handleLogin} />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
