@@ -25,6 +25,31 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY_ENV_VAR || "default_key"
 });
 
+// Admin session management
+const adminSessions = new Set<string>();
+
+// Admin authentication middleware
+const requireAdminAuth = (req: any, res: any, next: any) => {
+  try {
+    const authHeader = req.headers.authorization;
+    
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: "No token provided" });
+    }
+
+    const token = authHeader.substring(7);
+    
+    if (!adminSessions.has(token)) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+
+    next();
+  } catch (error) {
+    console.error("Admin auth middleware error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // Create or get conversation
@@ -1074,7 +1099,7 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
   // ===== ADMIN BLOG API ROUTES =====
 
   // Get all blog posts (admin)
-  app.get("/api/admin/blog/posts", async (req, res) => {
+  app.get("/api/admin/blog/posts", requireAdminAuth, async (req, res) => {
     try {
       const posts = await storage.getAllBlogPosts();
       res.json(posts);
@@ -1085,7 +1110,7 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
   });
 
   // Create blog post
-  app.post("/api/admin/blog/posts", async (req, res) => {
+  app.post("/api/admin/blog/posts", requireAdminAuth, async (req, res) => {
     try {
       const postData = req.body;
       
@@ -1116,7 +1141,7 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
   });
 
   // Update blog post
-  app.put("/api/admin/blog/posts/:id", async (req, res) => {
+  app.put("/api/admin/blog/posts/:id", requireAdminAuth, async (req, res) => {
     try {
       const { id } = req.params;
       const updates = req.body;
@@ -1140,7 +1165,7 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
   });
 
   // Delete blog post
-  app.delete("/api/admin/blog/posts/:id", async (req, res) => {
+  app.delete("/api/admin/blog/posts/:id", requireAdminAuth, async (req, res) => {
     try {
       const { id } = req.params;
       await storage.deleteBlogPost(parseInt(id));
