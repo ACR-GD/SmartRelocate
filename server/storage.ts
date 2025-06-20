@@ -7,6 +7,9 @@ import {
   adminUsers,
   pdfPurchases,
   visaTypes,
+  blogPosts,
+  blogCategories,
+  blogPostCategories,
   type Conversation, 
   type InsertConversation, 
   type EmailCapture, 
@@ -23,6 +26,10 @@ import {
   type InsertPdfPurchase,
   type VisaType,
   type InsertVisaType,
+  type BlogPost,
+  type InsertBlogPost,
+  type BlogCategory,
+  type InsertBlogCategory,
   type ChatMessage 
 } from "@shared/schema";
 import { db } from "./db";
@@ -75,6 +82,22 @@ export interface IStorage {
   getAllVisaTypes(): Promise<VisaType[]>;
   getVisaTypeBySlug(slug: string): Promise<VisaType | undefined>;
   updateVisaType(id: number, updates: Partial<InsertVisaType>): Promise<VisaType | undefined>;
+  
+  // Blog Management
+  createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  getAllBlogPosts(published?: boolean): Promise<BlogPost[]>;
+  getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
+  getBlogPostById(id: number): Promise<BlogPost | undefined>;
+  updateBlogPost(id: number, updates: Partial<InsertBlogPost>): Promise<BlogPost | undefined>;
+  deleteBlogPost(id: number): Promise<void>;
+  incrementBlogPostViews(id: number): Promise<void>;
+  
+  // Blog Categories
+  createBlogCategory(category: InsertBlogCategory): Promise<BlogCategory>;
+  getAllBlogCategories(): Promise<BlogCategory[]>;
+  getBlogCategoryBySlug(slug: string): Promise<BlogCategory | undefined>;
+  updateBlogCategory(id: number, updates: Partial<InsertBlogCategory>): Promise<BlogCategory | undefined>;
+  deleteBlogCategory(id: number): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {

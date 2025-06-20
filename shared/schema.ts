@@ -1,4 +1,5 @@
-import { pgTable, text, serial, integer, boolean, timestamp, jsonb, numeric } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, jsonb, numeric, varchar } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -225,3 +226,76 @@ export interface VisaEligibilityResult {
   recommendations: string[];
   primaryReasons: string[];
 }
+
+// Blog tables
+export const blogPosts = pgTable("blog_posts", {
+  id: serial("id").primaryKey(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  titleEn: varchar("title_en", { length: 255 }).notNull(),
+  titleFr: varchar("title_fr", { length: 255 }),
+  titleAr: varchar("title_ar", { length: 255 }),
+  contentEn: text("content_en").notNull(),
+  contentFr: text("content_fr"),
+  contentAr: text("content_ar"),
+  excerptEn: text("excerpt_en"),
+  excerptFr: text("excerpt_fr"),
+  excerptAr: text("excerpt_ar"),
+  featuredImageUrl: varchar("featured_image_url", { length: 512 }),
+  isPublished: boolean("is_published").default(false),
+  publishedAt: timestamp("published_at"),
+  authorId: varchar("author_id", { length: 255 }),
+  tags: text("tags").array(),
+  seoKeywords: text("seo_keywords").array(),
+  readingTimeMinutes: integer("reading_time_minutes"),
+  viewCount: integer("view_count").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const blogCategories = pgTable("blog_categories", {
+  id: serial("id").primaryKey(),
+  nameEn: varchar("name_en", { length: 255 }).notNull(),
+  nameFr: varchar("name_fr", { length: 255 }),
+  nameAr: varchar("name_ar", { length: 255 }),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  descriptionEn: text("description_en"),
+  descriptionFr: text("description_fr"),
+  descriptionAr: text("description_ar"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const blogPostCategories = pgTable("blog_post_categories", {
+  id: serial("id").primaryKey(),
+  postId: integer("post_id").references(() => blogPosts.id, { onDelete: "cascade" }),
+  categoryId: integer("category_id").references(() => blogCategories.id, { onDelete: "cascade" }),
+});
+
+// Blog Relations
+export const blogPostsRelations = relations(blogPosts, ({ many }) => ({
+  categories: many(blogPostCategories),
+}));
+
+export const blogCategoriesRelations = relations(blogCategories, ({ many }) => ({
+  posts: many(blogPostCategories),
+}));
+
+export const blogPostCategoriesRelations = relations(blogPostCategories, ({ one }) => ({
+  post: one(blogPosts, {
+    fields: [blogPostCategories.postId],
+    references: [blogPosts.id],
+  }),
+  category: one(blogCategories, {
+    fields: [blogPostCategories.categoryId],
+    references: [blogCategories.id],
+  }),
+}));
+
+// Blog Types
+export type BlogPost = typeof blogPosts.$inferSelect;
+export type InsertBlogPost = typeof blogPosts.$inferInsert;
+export type BlogCategory = typeof blogCategories.$inferSelect;
+export type InsertBlogCategory = typeof blogCategories.$inferInsert;
+
+// Blog Schemas
+export const insertBlogPostSchema = createInsertSchema(blogPosts);
+export const insertBlogCategorySchema = createInsertSchema(blogCategories);
