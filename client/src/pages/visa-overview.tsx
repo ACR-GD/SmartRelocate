@@ -261,16 +261,29 @@ export default function VisaOverviewPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
-                  onClick={() => window.location.href = '/#wizard'}
+                  onClick={() => {
+                    window.location.href = '/#';
+                    setTimeout(() => {
+                      const element = document.getElementById('wizard');
+                      if (element) element.scrollIntoView({ behavior: 'smooth' });
+                      const event = new Event('showWizard');
+                      window.dispatchEvent(event);
+                    }, 100);
+                  }}
                   className="bg-white text-blue-600 hover:bg-gray-100"
                   size="lg"
                 >
                   Get AI Assessment
                 </Button>
                 <Button 
-                  onClick={() => window.location.href = '/#consultation'}
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-blue-600"
+                  onClick={() => {
+                    window.location.href = '/#';
+                    setTimeout(() => {
+                      const element = document.getElementById('consultation');
+                      if (element) element.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
+                  className="bg-white text-blue-600 border-2 border-white hover:bg-blue-50"
                   size="lg"
                 >
                   Book Expert Consultation

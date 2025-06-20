@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import HeroSection from "@/components/hero-section";
 import HowItWorks from "@/components/how-it-works";
@@ -23,6 +23,13 @@ export default function Home() {
   const [showEmailExport, setShowEmailExport] = useState(false);
   const t = useTranslation();
   const { userPlan } = useUserPlan();
+
+  // Listen for wizard trigger events from other pages
+  useEffect(() => {
+    const handleShowWizard = () => setShowWizard(true);
+    window.addEventListener('showWizard', handleShowWizard);
+    return () => window.removeEventListener('showWizard', handleShowWizard);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -117,11 +124,11 @@ export default function Home() {
       )}
       
       {showWizard && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div id="wizard" className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">{t.wizardTitle}</h2>
+                <h2 className="text-2xl font-bold">Malaysia Relocation Assessment</h2>
                 <button 
                   onClick={() => setShowWizard(false)}
                   className="text-gray-500 hover:text-gray-700"
@@ -183,6 +190,37 @@ export default function Home() {
       </section>
 
       <ChatSection onStartChat={() => setShowWizard(true)} />
+      
+      {/* Expert Consultation Section */}
+      <section id="consultation" className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-white mb-6">Book Expert Consultation</h2>
+          <p className="text-xl text-blue-100 mb-8">
+            Get personalized guidance from Malaysia relocation experts who have helped hundreds of professionals successfully relocate.
+          </p>
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <h3 className="text-xl font-bold text-white mb-3">Visa Strategy Session</h3>
+              <p className="text-blue-100 mb-4">30-minute consultation to determine the best visa pathway for your situation</p>
+              <p className="text-2xl font-bold text-white">$89</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <h3 className="text-xl font-bold text-white mb-3">Complete Relocation Planning</h3>
+              <p className="text-blue-100 mb-4">90-minute comprehensive session covering visa, housing, banking, and lifestyle</p>
+              <p className="text-2xl font-bold text-white">$249</p>
+            </div>
+          </div>
+          <button 
+            onClick={() => window.open('https://calendly.com/smartrelocate', '_blank')}
+            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            Schedule Your Consultation
+            <svg className="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </section>
       
       {/* Pricing Section - Always Visible */}
       <Pricing />
