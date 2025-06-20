@@ -39,6 +39,8 @@ const requireAdminAuth = (req: any, res: any, next: any) => {
 
     const token = authHeader.substring(7);
     
+    console.log(`Auth check: Token ${token}, Sessions:`, Array.from(adminSessions));
+    
     if (!adminSessions.has(token)) {
       return res.status(401).json({ message: "Invalid token" });
     }
