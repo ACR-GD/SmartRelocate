@@ -126,7 +126,8 @@ export default function AdminBlogPage() {
       });
       if (!response.ok) throw new Error('Failed to fetch posts');
       return response.json();
-    }
+    },
+    enabled: isAuthenticated
   });
 
   const createPostMutation = useMutation({
