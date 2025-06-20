@@ -176,6 +176,98 @@ export default function VisaDetailPage() {
       familyInclusion: true,
       workRights: true,
       isPremium: false
+    },
+    "student-visa": {
+      id: 7,
+      name: "Student Visa",
+      slug: "student-visa",
+      duration: "1 to 5 years",
+      eligibility: "Enrollment in recognized Malaysian institutions",
+      minimumIncome: "Proof of funds for tuition/living",
+      applicationFee: "Varies",
+      description: "For international students pursuing education at recognized Malaysian institutions.",
+      requirements: [
+        "Acceptance letter from recognized institution",
+        "Proof of financial capability",
+        "Academic transcripts",
+        "Medical examination",
+        "Good conduct certificate"
+      ],
+      benefits: [
+        "Study at top Malaysian universities",
+        "Part-time work privileges (limited hours)",
+        "Multicultural learning environment",
+        "Affordable quality education",
+        "Gateway to employment opportunities",
+        "Cultural immersion experience"
+      ],
+      applicationProcess: [
+        "Apply and receive acceptance from Malaysian institution",
+        "Institution submits visa application on student's behalf",
+        "Receive approval letter",
+        "Apply for entry visa at Malaysian embassy",
+        "Enter Malaysia and complete student pass formalities",
+        "Register with institution and immigration"
+      ],
+      requiredDocuments: [
+        "Letter of acceptance from institution",
+        "Academic transcripts and certificates",
+        "Financial guarantee or bank statements",
+        "Medical examination report",
+        "Good conduct certificate",
+        "Passport with sufficient validity",
+        "Passport-sized photographs",
+        "Scholarship letters (if applicable)"
+      ],
+      processingTime: "2-6 weeks",
+      renewability: "Renewable throughout study duration",
+      familyInclusion: false,
+      workRights: false,
+      isPremium: false
+    },
+    "professional-visit-pass": {
+      id: 8,
+      name: "Professional Visit Pass",
+      slug: "professional-visit-pass",
+      duration: "3 to 12 months",
+      eligibility: "Short-term project or professional visit",
+      minimumIncome: "Depends on project",
+      applicationFee: "Varies",
+      description: "For professionals on short-term assignments or business visits to Malaysia.",
+      requirements: [
+        "Invitation letter from Malaysian company",
+        "Employment contract or project agreement",
+        "Proof of professional qualifications",
+        "Clean criminal record"
+      ],
+      benefits: [
+        "Work on specific projects",
+        "Multiple entry privileges",
+        "Fast processing time",
+        "No lengthy commitment required",
+        "Professional networking opportunities"
+      ],
+      applicationProcess: [
+        "Malaysian company submits application",
+        "Prepare required documentation",
+        "Submit application to immigration",
+        "Receive approval letter",
+        "Apply for visa at embassy",
+        "Enter Malaysia and begin work"
+      ],
+      requiredDocuments: [
+        "Invitation letter from Malaysian company",
+        "Professional qualification certificates",
+        "Resume and work experience",
+        "Contract or project agreement",
+        "Passport with minimum validity",
+        "Medical examination (if required)"
+      ],
+      processingTime: "2-4 weeks",
+      renewability: "May be extended based on project needs",
+      familyInclusion: false,
+      workRights: true,
+      isPremium: false
     }
   };
 
