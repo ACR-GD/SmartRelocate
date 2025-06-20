@@ -1131,6 +1131,16 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
           .replace(/(^-|-$)/g, '');
       }
       
+      // Handle publishedAt timestamp - set to current time if publishing and not already set
+      if (postData.isPublished && !postData.publishedAt) {
+        postData.publishedAt = new Date();
+      }
+      
+      // Ensure publishedAt is null if not publishing
+      if (!postData.isPublished) {
+        postData.publishedAt = null;
+      }
+      
       const post = await storage.createBlogPost(postData);
       res.json(post);
     } catch (error) {
@@ -1148,6 +1158,15 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
       // Calculate reading time if content changed
       if (updates.contentEn) {
         updates.readingTimeMinutes = calculateReadingTime(updates.contentEn);
+      }
+      
+      // Handle publishedAt timestamp for updates
+      if (updates.isPublished !== undefined) {
+        if (updates.isPublished && !updates.publishedAt) {
+          updates.publishedAt = new Date();
+        } else if (!updates.isPublished) {
+          updates.publishedAt = null;
+        }
       }
       
       const post = await storage.updateBlogPost(parseInt(id), updates);
