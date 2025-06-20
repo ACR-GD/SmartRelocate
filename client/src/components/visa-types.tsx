@@ -1,4 +1,6 @@
 import { useTranslation } from "@/hooks/use-language";
+import { Link } from "wouter";
+import { ArrowRight } from "lucide-react";
 
 export default function VisaTypes() {
   const t = useTranslation();
@@ -95,6 +97,19 @@ export default function VisaTypes() {
               </button>
             </div>
           ))}
+        </div>
+        
+        {/* Call to Action Button */}
+        <div className="text-center mt-12">
+          <Link href="/visa">
+            <button className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+              View All Malaysia Visa Types
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </button>
+          </Link>
+          <p className="mt-4 text-gray-600 text-sm">
+            Explore detailed requirements, benefits, and application processes for all 8+ visa types
+          </p>
         </div>
       </div>
     </section>
