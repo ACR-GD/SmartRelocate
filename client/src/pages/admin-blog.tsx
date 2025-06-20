@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Plus, Edit, Trash2, Eye, Calendar, Sparkles, Save, X } from "lucide-react";
@@ -386,6 +386,9 @@ export default function AdminBlogPage() {
               <DialogContent className="max-w-2xl">
                 <DialogHeader>
                   <DialogTitle>Generate Blog Post with AI</DialogTitle>
+                  <DialogDescription>
+                    Use AI to automatically generate blog content in multiple languages based on your prompt and keywords.
+                  </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
                   <div>
@@ -437,6 +440,9 @@ export default function AdminBlogPage() {
               <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>Create New Blog Post</DialogTitle>
+                  <DialogDescription>
+                    Create a new blog post with content in multiple languages including titles, content, and SEO optimization.
+                  </DialogDescription>
                 </DialogHeader>
                 <BlogPostForm 
                   formData={formData}
@@ -569,6 +575,9 @@ export default function AdminBlogPage() {
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Edit Blog Post</DialogTitle>
+              <DialogDescription>
+                Modify an existing blog post including content, translations, and metadata settings.
+              </DialogDescription>
             </DialogHeader>
             <BlogPostForm 
               formData={formData}
@@ -763,7 +772,7 @@ function BlogPostForm({
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
-              {formData.tags.map((tag) => (
+              {formData.tags.map((tag: string) => (
                 <Badge key={tag} variant="secondary" className="flex items-center gap-1">
                   {tag}
                   <X 
@@ -803,7 +812,7 @@ function BlogPostForm({
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
-              {formData.seoKeywords.map((keyword) => (
+              {formData.seoKeywords.map((keyword: string) => (
                 <Badge key={keyword} variant="outline" className="flex items-center gap-1">
                   {keyword}
                   <X 
