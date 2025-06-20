@@ -1177,7 +1177,7 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
   });
 
   // Generate blog post with AI
-  app.post("/api/admin/blog/generate", async (req, res) => {
+  app.post("/api/admin/blog/generate", requireAdminAuth, async (req, res) => {
     try {
       const { prompt, title, category, keywords } = req.body;
       
@@ -1200,7 +1200,7 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
   });
 
   // Create blog category
-  app.post("/api/admin/blog/categories", async (req, res) => {
+  app.post("/api/admin/blog/categories", requireAdminAuth, async (req, res) => {
     try {
       const categoryData = req.body;
       
@@ -1225,7 +1225,7 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
   });
 
   // Update blog category
-  app.put("/api/admin/blog/categories/:id", async (req, res) => {
+  app.put("/api/admin/blog/categories/:id", requireAdminAuth, async (req, res) => {
     try {
       const { id } = req.params;
       const updates = req.body;
@@ -1244,7 +1244,7 @@ For latest updates and personalized guidance, visit SmartRelocate.ai
   });
 
   // Delete blog category
-  app.delete("/api/admin/blog/categories/:id", async (req, res) => {
+  app.delete("/api/admin/blog/categories/:id", requireAdminAuth, async (req, res) => {
     try {
       const { id } = req.params;
       await storage.deleteBlogCategory(parseInt(id));
